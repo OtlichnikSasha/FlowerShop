@@ -1,0 +1,37 @@
+@import "header_footer.scss";
+
+/*=== Catalog ===*/
+.catalog_place{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.sorting_place{
+  width: 30%;
+  border: 1px solid #222222;
+}
+.catalog_products_place{
+  width: 70%;
+  padding: 0 2.5%;
+  border: 1px solid #222222;
+}
+
+
+/*=== Product Page ===*/
+.product_place{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.product_photos_place{
+  width: 5%;
+}
+.product_data_center{
+  width: 40%;
+  margin: 0 2.5%;
+}
+.product_data_right{
+  width: 50%;
+  padding: 20px;
+  background: $grey;
+}

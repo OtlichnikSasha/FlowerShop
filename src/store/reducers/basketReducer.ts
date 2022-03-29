@@ -1,11 +1,4 @@
-
-
-interface BasketState {
-    basket: object,
-    status: boolean,
-    error: string,
-    loading: boolean
-}
+import {ActionBasketTypes, BasketActionTypes, BasketState} from "../../types/basket";
 
 const initialState : BasketState = {
     basket: {},
@@ -14,11 +7,15 @@ const initialState : BasketState = {
     loading: false
 }
 
-
-export const basketReducer = (state = initialState, action: { type: any }) => {
+export const basketReducer = (state = initialState, action: BasketActionTypes) : BasketState => {
     switch (action.type){
-        case "FETCH_BASKET" : return {
-
-        }
+        case ActionBasketTypes.FETCH_BASKET :
+            return {loading: true, status: null, basket: {}, error: null}
+        case ActionBasketTypes.FETCH_BASKET_SUCCESS :
+            return {loading: false, status: true, basket: action.payload, error: null}
+        case ActionBasketTypes.FETCH_BASKET_ERROR :
+            return {loading: false, status: false, basket: {}, error: action.payload}
+        default:
+            return state
     }
 }
