@@ -3,7 +3,10 @@ import {Sorting} from "../components/sorting";
 import {Link} from 'react-router-dom'
 
 export const Catalog: React.FC = () => {
+
+
     useEffect(() => {
+        
         // Тут будем получать категории, подкатегории и товары
     }, [])
 
