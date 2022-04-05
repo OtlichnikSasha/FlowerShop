@@ -14,7 +14,8 @@ const Product = sequelize.define('product', {
     name: {type: DataTypes.STRING, unique: true},
     price: {type: DataTypes.INTEGER},
     cellPrice: {type: DataTypes.INTEGER},
-    description: {type: DataTypes.STRING}
+    description: {type: DataTypes.STRING},
+    views: {type: DataTypes.INTEGER, defaultValue: 0}
 })
 
 const SubCategory = sequelize.define('subcategory', {
