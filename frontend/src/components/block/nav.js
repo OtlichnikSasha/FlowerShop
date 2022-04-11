@@ -1,18 +1,36 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+
 export const Nav = () => {
+    const {categories} = useTypedSelector(state => state.categories)
     return (
         <div className="block_container">
             <nav className="nav">
-                <NavLink to="/catalog" className="nav_link">
-                    Каталог
-                </NavLink>
-                <NavLink to="/catalog" className="nav_link">
-                    Доставка и оплата
-                </NavLink>
-                <NavLink to="/catalog" className="nav_link">
-                    Блог
-                </NavLink>
+                <div className="nav_item">
+                    <NavLink to="/catalog" className="nav_link">
+                        Каталог
+                    </NavLink>
+                    <div className="categories_list_place">
+                        {categories.length && categories.map(category => {
+                            return (
+                                <NavLink to={`/catalog/${category.id}/all`} className="nav_link" key={category.id}>
+                                    {category.name}
+                                </NavLink>
+                            )
+                        })}
+                    </div>
+                </div>
+                <div className="nav_item">
+                    <NavLink to="/catalog" className="nav_link">
+                        Доставка и оплата
+                    </NavLink>
+                </div>
+                <div className="nav_item">
+                    <NavLink to="/catalog" className="nav_link">
+                        Блог
+                    </NavLink>
+                </div>
             </nav>
             <div className="logo_place">
                 <NavLink to='/index' className='logo'>

@@ -1,10 +1,15 @@
-
 export interface CategoriesState {
-    categories: object[],
+    categories: any[],
     status: boolean | null,
     error: string | null,
     loading: boolean
 }
+
+export interface CategoryState {
+    id: number,
+    name: string
+}
+
 export enum ActionCategoriesTypes {
     FETCH_CATEGORIES = "FETCH_CATEGORIES",
     FETCH_CATEGORIES_SUCCESS = "FETCH_CATEGORIES_SUCCESS",

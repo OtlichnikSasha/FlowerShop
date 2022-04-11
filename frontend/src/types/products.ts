@@ -1,8 +1,16 @@
 export interface ProductsState {
-    products: [],
+    products: ProductState[],
     status: boolean | null,
     error: string | null,
     loading: boolean
+}
+
+interface ProductState{
+    id: number,
+    name: string,
+    subCategoryId: number,
+    views: number,
+    price: number
 }
 
 export enum ActionProductsTypes {

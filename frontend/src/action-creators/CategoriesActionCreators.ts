@@ -1,13 +1,18 @@
 import axios from "axios";
-// @ts-ignore
-import { APP_SERVER_BASE } from '@env'
+
+export const getCategories = async () => {
+    try {
+        return await axios.get("/api/categories")
+    } catch (e: any) {
+        return console.log('error', e.response.data.error)
+    }
+}
 
 
-
-export const getCategories = () => {
+export const createCategory = (data: object) => {
     return async () => {
         try {
-            return await axios.get(APP_SERVER_BASE + "categories")
+            return await axios.post("/api/categories", data)
         } catch (e: any) {
             console.log('error', e.response.data.error)
         }

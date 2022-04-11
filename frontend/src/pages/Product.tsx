@@ -1,7 +1,26 @@
-import React from 'react';
-import {Link} from "react-router-dom";
-
+import React, {useEffect} from 'react';
+import {Link, useParams} from "react-router-dom";
+import {useActions} from "../hooks/useActions";
+import {useTypedSelector} from "../hooks/useTypedSelector";
+interface ProductParams {
+    id: string
+}
 export const Product: React.FC = () => {
+    const {id}:ProductParams = useParams()
+    const {product, loading} = useTypedSelector(state => state.product)
+    const {fetchProduct} = useActions();
+    useEffect(() => {
+        fetchProduct({id})
+    }, [id])
+
+    if(loading){
+        return (
+            <div>
+                Загрузка
+            </div>
+        )
+    }
+
     return (
         <section className="container">
             <div className="breadcrumbs_place">

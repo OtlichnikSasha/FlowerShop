@@ -6,17 +6,122 @@
   display: flex;
   flex-wrap: wrap;
 }
+/* Левая часть */
 .sorting_place{
   width: 30%;
   border: 1px solid #222222;
+  padding: 0 15px;
+  height: 100%;
 }
 .catalog_products_place{
   width: 70%;
-  padding: 0 2.5%;
+  padding: 10px 1% 10px 2.5%;
   border: 1px solid #222222;
 }
 
+.sidebar_item{
+  margin: 5px 0;
+  transition: padding-left .4s;
+}
+.sidebar_item:hover{
+  padding-left: 10px;
+  transition: padding-left .4s;
+}
+.sidebar_item__link{
+  font-size: 28px;
 
+}
+.sidebar_item__link._active{
+  color: $pink;
+}
+
+/* Подкатегории */
+.subcategories_place{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 25px;
+}
+.subcategories_item{
+  padding: 5px 15px;
+  border-radius: 25%;
+  background: $grey;
+  text-align: center;
+  margin: 0 10px 10px 0;
+}
+.subcategories_item._active{
+  background: $pink;
+}
+.subcategories_item__link{
+  font-size: 16px;
+  font-weight: bold;
+  ._active{
+    color: $pink;
+  }
+}
+/* Товары */
+.products_place{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.product_card{
+  width: 32%;
+  margin: 0 10px 10px 0;
+  border: 4px solid #293048;
+  height: 400px;
+}
+.product_card:nth-child(3n){
+  margin-right: 0;
+}
+.product_card__link{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.product_card__photo_place{
+  height: 60%;
+  position: relative;
+  width: 100%;
+  border: 1px solid #222;
+}
+.product_card__data_place{
+  padding: 10px;
+}
+.product_data__name{
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+}
+.product_data__flex{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.product_data__price{
+  font-size: 24px;
+  font-weight: bold;
+}
+.product_data__cell_price{
+  font-size: 24px;
+  font-weight: bold;
+  color: $pink;
+}
+.product_data__basket_place{
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $beige;
+  span{
+    font-size: 20px;
+  }
+}
 /*=== Product Page ===*/
 .product_place{
   width: 100%;

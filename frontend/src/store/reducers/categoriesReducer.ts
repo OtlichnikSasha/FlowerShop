@@ -7,10 +7,18 @@ const initialState : CategoriesState = {
     status: false,
     error: '',
     loading: false
-}
+};
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
+    async () => {
+        return await getCategories();
+    }
+)
+
+
+export const createCategory = createAsyncThunk(
+    'category/createFetchCategories',
     async () => {
         return getCategories();
     }
@@ -31,7 +39,7 @@ const categoriesSlice = createSlice({
                 console.log('categories', action.payload)
                 state.loading = false
                 // @ts-ignore
-                state.categories = action.payload
+                state.categories = action.payload.data
                 state.status = true
             })
             .addCase(fetchCategories.rejected, state => {

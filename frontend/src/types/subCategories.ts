@@ -1,5 +1,5 @@
 export interface SubCategoriesState {
-    subCategories: object[],
+    subCategories: any[],
     status: boolean | null,
     error: string | null,
     loading: boolean
