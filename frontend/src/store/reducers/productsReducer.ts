@@ -2,15 +2,7 @@ import {ProductsState} from "../../types/products";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getProducts} from "../../action-creators/ProductsActionCreators";
 const initialState : ProductsState = {
-    products: [
-        {id: 1, name: "Розы", price: 1500, subCategoryId: 1, views: 100},
-        {id: 2, name: "Тюльпаны", price: 1500, subCategoryId: 1, views: 100},
-        {id: 3, name: "Синицы", price: 1500, subCategoryId: 1, views: 100},
-        {id: 4, name: "Подсолнухи", price: 1500, subCategoryId: 1, views: 100},
-        {id: 5, name: "Лопухи", price: 1500, subCategoryId: 1, views: 100},
-        {id: 6, name: "Сам ты лопух", price: 1500, subCategoryId: 1, views: 100},
-        {id: 7, name: "АВАВ", price: 1500, subCategoryId: 1, views: 100}
-    ],
+    products: [],
     status: false,
     error: '',
     loading: false

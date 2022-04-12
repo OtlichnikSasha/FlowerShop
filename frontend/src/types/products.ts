@@ -1,3 +1,4 @@
+
 export interface ProductsState {
     products: ProductState[],
     status: boolean | null,
@@ -8,29 +9,11 @@ export interface ProductsState {
 interface ProductState{
     id: number,
     name: string,
+    categoryId: number,
     subCategoryId: number,
+    price: number,
+    cellPrice: number,
+    description: string,
     views: number,
-    price: number
+    cellPercent: number
 }
-
-export enum ActionProductsTypes {
-    FETCH_PRODUCTS = "FETCH_PRODUCTS",
-    FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS",
-    FETCH_PRODUCTS_ERROR = "FETCH_PRODUCTS_ERROR"
-}
-
-export interface FetchProductsAction {
-    type: ActionProductsTypes.FETCH_PRODUCTS
-}
-
-export interface FetchProductsSuccessAction {
-    type: ActionProductsTypes.FETCH_PRODUCTS_SUCCESS
-    payload: []
-}
-
-export interface FetchProductsErrorAction {
-    type: ActionProductsTypes.FETCH_PRODUCTS_ERROR
-    payload: string
-}
-
-export type ProductsActionTypes = FetchProductsAction | FetchProductsSuccessAction | FetchProductsErrorAction

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import {BrowserRouter as Router} from "react-router-dom";
 import {Header} from "./components/block/header";
 import {Footer} from "./components/block/footer";

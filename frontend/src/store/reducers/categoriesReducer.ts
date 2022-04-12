@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import {getCategories} from "../../action-creators/CategoriesActionCreators";
+import {getCategories, createCategory} from "../../action-creators/CategoriesActionCreators";
 import {CategoriesState} from "../../types/categories";
 
 const initialState : CategoriesState = {
@@ -17,10 +17,11 @@ export const fetchCategories = createAsyncThunk(
 )
 
 
-export const createCategory = createAsyncThunk(
-    'category/createFetchCategories',
-    async () => {
-        return getCategories();
+export const fetchCreateCategory = createAsyncThunk(
+    'categories/FetchCreateCategory',
+    async (data: object) => {
+        console.log('data', data)
+        return await createCategory(data);
     }
 )
 

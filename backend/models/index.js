@@ -15,7 +15,8 @@ const Product = sequelize.define('product', {
     price: {type: DataTypes.INTEGER},
     cellPrice: {type: DataTypes.INTEGER},
     description: {type: DataTypes.STRING},
-    views: {type: DataTypes.INTEGER, defaultValue: 0}
+    views: {type: DataTypes.INTEGER, defaultValue: 0},
+    cellPercent: {type: DataTypes.INTEGER, defaultValue: 0}
 })
 
 const SubCategory = sequelize.define('subcategory', {
@@ -66,6 +67,10 @@ SubCategory.belongsTo(Category)
 // Product содержит поле subCategoryID
 SubCategory.hasOne(Product)
 Product.belongsTo(SubCategory)
+
+// Product содержит поле categoryID
+Category.hasOne(Product)
+Product.belongsTo(Category)
 
 // PhotoProduct содержит productID и photoID
 Product.belongsToMany(Photo, {through: PhotoProduct })
