@@ -4,6 +4,7 @@ import basketReducer from "./basketReducer";
 import subCategoriesReducer from "./subCategoriesReducer";
 import productsReducer from "./productsReducer";
 import productReducer from "./productReducer";
+import flowerReducer from "./flowerReducer";
 
 
 export const rootReducer = combineReducers({
@@ -11,7 +12,8 @@ export const rootReducer = combineReducers({
     basket: basketReducer,
     subCategories: subCategoriesReducer,
     products: productsReducer,
-    product: productReducer
+    product: productReducer,
+    flowers: flowerReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

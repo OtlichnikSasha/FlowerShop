@@ -3,10 +3,7 @@ const {DataTypes} = require('sequelize')
 
 const Photo = sequelize.define('photo', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    src: {type: DataTypes.STRING, unique: true}
-})
-
-const PhotoProduct = sequelize.define('photo_product', {
+    src: {type: DataTypes.STRING(5000), unique: true}
 })
 
 const Product = sequelize.define('product', {
@@ -72,9 +69,9 @@ Product.belongsTo(SubCategory)
 Category.hasOne(Product)
 Product.belongsTo(Category)
 
-// PhotoProduct содержит productID и photoID
-Product.belongsToMany(Photo, {through: PhotoProduct })
-Photo.belongsToMany(Product, {through: PhotoProduct })
+// Photo содержит productID
+Product.hasMany(Photo, {as: 'photos'})
+Photo.belongsTo(Product)
 
 // FlowerProduct содержит productID и flowerID
 Product.belongsToMany(Flower, {through: FlowerProduct })
@@ -90,7 +87,6 @@ module.exports = {
     Category,
     SubCategory,
     Photo,
-    PhotoProduct,
     Flower,
     FlowerProduct
 }

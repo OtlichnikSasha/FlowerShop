@@ -1,11 +1,31 @@
-import React from 'react';
+import React, {useState, FC} from 'react';
 import {NavLink} from 'react-router-dom'
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {BasketModalWindow} from "./basketModalWindow";
+import {AuthModalWindow} from "./authModalWindow";
 
-export const Nav = () => {
+export const Nav: FC = () => {
     const {categories} = useTypedSelector(state => state.categories)
+    const [visibleBasket, setVisibleBasket] = useState(false)
+    const [visibleAuth, setVisibleAuth] = useState(false)
+    const openBasket = () => {
+        setVisibleBasket(true)
+        const body = document.getElementsByTagName("body")[0];
+        body.style.overflow = "hidden";
+    }
+
+    const openAuthModal = () => {
+        setVisibleAuth(true)
+        const body = document.getElementsByTagName("body")[0];
+        body.style.overflow = "hidden";
+    }
+
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className="block_container">
+            {visibleBasket && <BasketModalWindow visible={visibleBasket} setVisible={setVisibleBasket}/>}
+            {visibleAuth && <AuthModalWindow visible={visibleAuth} setVisible={setVisibleAuth}/>}
             <nav className="nav">
                 <div className="nav_item">
                     <NavLink to="/catalog" className="nav_link">
@@ -48,20 +68,20 @@ export const Nav = () => {
                             </span>
                     </div>
                 </NavLink>
-                <NavLink to="/favorites" className="right_nav__item">
+                <div className="right_nav__item" onClick={openBasket}>
                     <div className="right_nav__item icon">
                             <span className="fas fa-shopping-bag">
 
                             </span>
                     </div>
-                </NavLink>
-                <NavLink to="/favorites" className="right_nav__item">
+                </div>
+                <div className="right_nav__item" onClick={openAuthModal}>
                     <div className="right_nav__item icon">
                             <span className="fas fa-user">
 
                             </span>
                     </div>
-                </NavLink>
+                </div>
             </div>
         </div>
 

@@ -1,30 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {Sorting} from "../components/sorting";
 import {Link} from "react-router-dom"
 import {useParams} from 'react-router-dom'
 import {SubCategoriesList} from "../components/subCategoriesList";
 import {useActions} from "../hooks/useActions";
 import {CategoriesList} from "../components/categoriesList";
+import {FlowersList} from "../components/flowersList";
 import {ProductsList} from "../components/productsList";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {PageNavigation} from "../components/pageNavigation";
 
 interface CatalogParams {
     categoryId: string | undefined
-    subCategoryId: string | undefined
+    subCategoryId: string | undefined,
+    page: string | undefined
 }
 
 export const Catalog: React.FC = () => {
     console.log(useParams())
-    let {categoryId, subCategoryId}: CatalogParams = useParams()
+    let {categoryId, subCategoryId, page}: CatalogParams = useParams()
     console.log('Catalog', subCategoryId, categoryId)
     if (categoryId === undefined) categoryId = "1"
     if (subCategoryId === undefined) subCategoryId = "all"
-
+    if (page === undefined) page = "1"
+    const limit = 15;
+    let offset = 0;
     const [category, setCategory] = useState(null)
     const [subCategory, setSubCategory] = useState("all")
 
-    const {fetchSubCategories, fetchProducts} = useActions()
-    useEffect(() => {
+    const {fetchSubCategories, fetchProducts, fetchCreateProduct, fetchCreateFlowers, fetchFlowers} = useActions()
+
+    const getSubCategories = useCallback(() => {
         // Создали категории
         // fetchCreateCategory({name: "Букеты"})
         // fetchCreateCategory({name: "Цветы в горшке"})
@@ -38,35 +44,53 @@ export const Catalog: React.FC = () => {
 
         // Создали товары
         // fetchCreateProduct({
-        //     name: "Букет роз",
+        //     name: "Букет подсолнухов",
         //     categoryId: 1,
-        //     subCategoryId: 1,
-        //     price: 1000,
-        //     cellPrice: 900,
+        //     subcategoryId: 1,
+        //     price: 500,
+        //     cellPrice: 450,
         //     cellPercent: 10,
-        //     description: "Букет для милфочки"
+        //     description: "Букет для тётечки"
         // })
         // fetchCreateProduct({
-        //     name: "Букет тюльпанов",
+        //     name: "Букет лопухов",
         //     categoryId: 1,
-        //     subCategoryId: 2,
-        //     price: 1000,
-        //     cellPrice: 900,
+        //     subcategoryId: 2,
+        //     price: 1500,
+        //     cellPrice: 1350,
         //     cellPercent: 10,
-        //     description: "Букет для тюлочёк"
+        //     description: "Букет для лопухов"
         // })
+        // Создали цветы
+        // fetchCreateFlowers({name: "Розы", number: 100})
+        // fetchCreateFlowers({name: "Тюльпаны", number: 50})
+        // fetchCreateFlowers({name: "Лопухи", number: 25})
+        // fetchCreateFlowers({name: "Одуваники", number: 100})
+        // fetchCreateFlowers({name: "Яблоки????", number: 10})
 
         // Получаем подкатегории по categoryId
         fetchSubCategories({categoryId})
-
+        fetchFlowers()
         getNameCategory()
-        getNameSubCategory()
+    }, [categoryId])
 
+    useEffect(() => {
+        getSubCategories()
+    }, [getSubCategories])
+
+
+    const getProducts = useCallback(() => {
         // Получаем товары по categoryId и subCategoryId
-        fetchProducts({categoryId, subcategoryId: subCategoryId})
+        getNameSubCategory()
+        if(page !== "1") offset = (Number(page)-1) * limit
+        fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
+    }, [subCategoryId])
+
+    useEffect(() => {
+        getProducts()
+    }, [getProducts])
 
 
-    }, [categoryId, subCategoryId])
     const {categories} = useTypedSelector(state => state.categories)
     const {subCategories} = useTypedSelector(state => state.subCategories)
     useEffect(() => {
@@ -95,12 +119,14 @@ export const Catalog: React.FC = () => {
             <div className="catalog_place">
                 <div className="sorting_place">
                     <CategoriesList categoryId={categoryId}/>
+                    <Sorting/>
+                    <FlowersList/>
                 </div>
-                <Sorting/>
                 <div className="catalog_products_place">
                     <SubCategoriesList categoryId={categoryId} subCategoryId={subCategoryId}/>
                     <ProductsList/>
                 </div>
+                <PageNavigation page={page}/>
             </div>
         </section>
     );

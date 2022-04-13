@@ -4,6 +4,7 @@ import {getProduct, createProduct} from "../../action-creators/ProductActionCrea
 
 
 const initialState : ProductState = {
+    // @ts-ignore
     product: {},
     status: false,
     error: '',
@@ -12,6 +13,7 @@ const initialState : ProductState = {
 export const fetchProduct = createAsyncThunk(
     'product/fetchProduct',
     async (args: object) => {
+        console.log('argsFetchProduct', args)
         return await getProduct(args);
     }
 )
@@ -35,10 +37,10 @@ const productSlice = createSlice({
                 state.loading = true
             })
             .addCase(fetchProduct.fulfilled, (state, action) => {
-                console.log('products', action.payload)
+                console.log('product', action.payload)
                 state.loading = false
                 // @ts-ignore
-                state.products = action.payload.data
+                state.product = action.payload.data
                 state.status = true
             })
             .addCase(fetchProduct.rejected, state => {

@@ -5,7 +5,8 @@ const initialState : ProductsState = {
     products: [],
     status: false,
     error: '',
-    loading: false
+    loading: false,
+    pages: 0
 }
 
 export const fetchProducts = createAsyncThunk(
@@ -27,11 +28,11 @@ const productsSlice = createSlice({
                 state.loading = true
             })
             .addCase(fetchProducts.fulfilled, (state, action) => {
-                console.log('products', action.payload)
+                console.log('products', action)
                 state.loading = false
-                // @ts-ignore
-                state.products = action.payload.data
+                state.products = action.payload?.data.products
                 state.status = true
+                state.pages = action.payload?.data.pages
             })
             .addCase(fetchProducts.rejected, state => {
                 state.loading = false

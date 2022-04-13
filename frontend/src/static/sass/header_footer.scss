@@ -8,7 +8,7 @@
   height: 90px;
   box-shadow: 0 4px 16px rgb(41 48 72 / 50%);
   background: $white;
-  z-index: 999;
+  z-index: 850;
 }
 
 .block_container {
@@ -110,6 +110,7 @@
   overflow: hidden;
   background: $beige;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .right_nav__item:last-child {
@@ -128,7 +129,7 @@
     }
   }
 }
-
+/*=== Footer ===*/
 .footer {
   background: #353925;
 }
@@ -157,3 +158,47 @@
     background: #ffffff;
   }
 }
+
+
+/*=== Modal Windows ===*/
+.modal_window_place{
+  position: absolute;
+  z-index: 900;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: #22222299;
+}
+.modal_window{
+  position: fixed;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  width: 40%;
+  background: #FFFFFF;
+  z-index: 950;
+}
+.modal_window__close_place{
+  width: 100%;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid $grey;
+}
+.close_place{
+  font-size: 20px;
+  cursor: pointer;
+  .fa-times{
+    margin-right: 10px;
+  }
+}
+/* Basket */
+.basket_top_data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+/* Authorization/Registration */

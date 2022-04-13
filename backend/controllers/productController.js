@@ -1,4 +1,5 @@
 const {Product} = require("../models/index")
+const {Photo} = require("../models/index");
 
 class ProductController {
     async createProduct(req, res) {
@@ -17,8 +18,20 @@ class ProductController {
 
     async getProduct(req, res) {
         const {id} = req.query
-        const product = await Product.findOne({where: {id}})
-        return res.json(product)
+        console.log('id', id)
+        try{
+            const product = await Product.findOne(
+                {
+                    where: {id},
+                    include: [{model: Photo, as: 'photos'}]
+                }
+            )
+            return res.json(product)
+        }
+        catch(e){
+            console.log('e', e)
+        }
+
     }
 }
 

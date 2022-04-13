@@ -11,6 +11,9 @@ const Routes = () => {
             <Route path='/index'>
                 <Index/>
             </Route>
+            <Route path="/catalog/:categoryId/:subCategoryId/:page">
+                <Catalog/>
+            </Route>
             <Route path="/catalog/:categoryId/:subCategoryId">
                 <Catalog/>
             </Route>

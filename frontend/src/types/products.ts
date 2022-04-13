@@ -3,7 +3,8 @@ export interface ProductsState {
     products: ProductState[],
     status: boolean | null,
     error: string | null,
-    loading: boolean
+    loading: boolean,
+    pages: number
 }
 
 interface ProductState{
@@ -15,5 +16,11 @@ interface ProductState{
     cellPrice: number,
     description: string,
     views: number,
-    cellPercent: number
+    cellPercent: number,
+    photos: ProductPhotos[]
+}
+
+interface ProductPhotos {
+    src: string,
+    productId: number
 }
