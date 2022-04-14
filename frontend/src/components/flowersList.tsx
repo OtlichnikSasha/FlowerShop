@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {Link} from 'react-router-dom'
 
 export const FlowersList: FC = () => {
     const {flowers, loading} = useTypedSelector(state => state.flowers)

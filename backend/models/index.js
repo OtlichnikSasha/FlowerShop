@@ -16,6 +16,12 @@ const Product = sequelize.define('product', {
     cellPercent: {type: DataTypes.INTEGER, defaultValue: 0}
 })
 
+const ProductDetails = sequelize.define('product_details', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    key: {type: DataTypes.STRING},
+    name: {type: DataTypes.STRING},
+})
+
 const SubCategory = sequelize.define('subcategory', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true},
@@ -68,6 +74,11 @@ Product.belongsTo(SubCategory)
 // Product содержит поле categoryID
 Category.hasOne(Product)
 Product.belongsTo(Category)
+
+// ProductDetails содержит productId
+Product.hasMany(ProductDetails, {as: 'details'})
+ProductDetails.belongsTo(Product)
+
 
 // Photo содержит productID
 Product.hasMany(Photo, {as: 'photos'})

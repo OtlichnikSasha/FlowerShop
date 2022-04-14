@@ -38,6 +38,12 @@
   transition: visibility .4s;
   visibility: hidden;
   box-shadow: 0 4px 16px rgb(41 48 72 / 50%);
+  .nav_item{
+    display: block;
+    width: max-content;
+    margin: 0;
+    position: initial;
+  }
 }
 
 .nav_item:first-child:hover .categories_list_place{
@@ -111,27 +117,27 @@
   background: $beige;
   border-radius: 50%;
   cursor: pointer;
+  .icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #222222;
+  }
 }
 
 .right_nav__item:last-child {
   margin-right: 0;
 }
 
-.right_nav__item {
-  .icon {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    span {
-      font-size: 20px;
-      color: #353925;
-    }
-  }
-}
 /*=== Footer ===*/
 .footer {
   background: #353925;
+  .categories_list_place{
+    background: #353925;
+    box-shadow: 0 4px 16px rgba(206, 206, 208, 0.5);
+  }
 }
 
 .footer {
@@ -148,17 +154,48 @@
   }
 
   .right_nav__item {
-    background: #222222;
-      span {
-        color: #ffffff;
-      }
+    background: #484E34;
+    color: #ffffff;
   }
 
   .nav_link:after {
     background: #ffffff;
   }
 }
-
+.footer_nav_item{
+  display: block;
+  width: max-content;
+  margin-bottom: 10px;
+}
+.footer_second_level{
+  border-top: 1px solid $grey;
+  width: 100%;
+  padding: 20px 0;
+  .container{
+    display: flex;
+    align-items: center;
+  }
+}
+.footer_second_level__part{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .nav_link:first-child{
+    margin-bottom: 10px;
+  }
+}
+.footer_second_level__part:last-child{
+  align-items: flex-end;
+}
+.social_network__heading{
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-align: center;
+}
+.social_network_place{
+  margin-top: 10px;
+}
 
 /*=== Modal Windows ===*/
 .modal_window_place{
@@ -178,6 +215,12 @@
   width: 40%;
   background: #FFFFFF;
   z-index: 950;
+  transform: translate(0, 120%);
+  transition: transform .4s;
+}
+.modal_window.open{
+  transform: translate(0, 0);
+  transition: transform .4s ease .5s;
 }
 .modal_window__close_place{
   width: 100%;

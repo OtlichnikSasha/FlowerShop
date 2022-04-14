@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getFlowers, createFlower} from "../../action-creators/FlowersActionCreator";
+import {getFlowers, createFlower} from "../../api/FlowersAPI";
 import {FlowersState} from "../../types/flowers";
 
 const initialState : FlowersState = {

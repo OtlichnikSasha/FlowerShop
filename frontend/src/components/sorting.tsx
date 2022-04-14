@@ -45,13 +45,13 @@ export const Sorting: FC = () => {
                         Цена
                     </div>
                     <div className="sorting_flex">
-                        <div>
+                        <div className="half_part_input_place">
                             <span>
                                От
                             </span>
                             <div>
                                 <div className="sorting_flex">
-                                    <input className=""
+                                    <input className="sorting_price_input"
                                            value={sortedData.cost_start}
                                            name="cost_start"
                                            onChange={changeHandler}
@@ -60,13 +60,13 @@ export const Sorting: FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className="half_part_input_place">
                             <span>
                                До
                             </span>
                             <div>
                                 <div className="sorting_flex">
-                                    <input className=""
+                                    <input className="sorting_price_input"
                                            value={sortedData.cost_end}
                                            name="cost_end"
                                            onChange={changeHandler}
@@ -76,9 +76,8 @@ export const Sorting: FC = () => {
                             </div>
                         </div>
                     </div>
+                    <input type="range" value={sortedData.cost_end} name="cost_end" onChange={changeHandler}/>
                 </div>
-
-
             </div>
         </>
     );

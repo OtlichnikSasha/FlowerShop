@@ -19,22 +19,30 @@ export const SubCategoriesList: FC<PropTypes> = ({categoryId, subCategoryId}) =>
 
     return (
         <div className="subcategories_place">
-            <div className={subCategoryId === "all" ? "subcategories_item _active" : "subcategories_item"}>
-                <Link to={`/catalog/${categoryId}/all`} className="subcategories_item__link">
+            <Link className={subCategoryId === "all" ? "subcategories_item _active" : "subcategories_item"}
+                  to={`/catalog/${categoryId}/all`}
+            >
+                <div  className="subcategories_item__link">
                     Все
-                </Link>
-            </div>
-            {subCategories.length && subCategories.map(subCategory => {
+                </div>
+            </Link>
+            {
+                subCategories.length ? subCategories.map(subCategory => {
                 return (
-                    <div className={Number(subCategoryId) === subCategory.id ? "subcategories_item _active" : "subcategories_item"}>
-                        <Link to={`/catalog/${categoryId}/${subCategory.id}`}
-                              key={subCategory.id}
-                              className="subcategories_item__link">
+                    <Link
+                        to={`/catalog/${categoryId}/${subCategory.id}`}
+                        key={subCategory.id}
+                        className={Number(subCategoryId) === subCategory.id ? "subcategories_item _active" : "subcategories_item"}
+                    >
+                        <div className="subcategories_item__link">
                             {subCategory.name}
-                        </Link>
-                    </div>
+                        </div>
+                    </Link>
                 )
-            })}
+            })
+            :
+                    <></>
+            }
         </div>
     );
 };

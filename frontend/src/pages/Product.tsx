@@ -9,9 +9,9 @@ interface ProductParams {
 
 export const Product: React.FC = () => {
     const {id}: ProductParams = useParams()
-    console.log('id', id)
     const [category, setCategory] = useState(null)
     const [subCategory, setSubCategory] = useState(null)
+    const [mainPhoto, setMainPhoto] = useState('')
 
     const {fetchProduct} = useActions();
     const getProduct = useCallback(() => {
@@ -19,9 +19,8 @@ export const Product: React.FC = () => {
     }, [id])
 
     useEffect(() => {
-        console.log('hello world')
-        fetchProduct({id})
-    }, [id])
+        getProduct()
+    }, [getProduct])
 
     const {product, loading} = useTypedSelector(state => state.product)
 
@@ -29,6 +28,8 @@ export const Product: React.FC = () => {
         if (product && !loading) {
             getNameCategory(product.categoryId)
             getNameSubCategory(product.subcategoryId)
+            document.title = product.name
+            if(product.hasOwnProperty("photos") && product.photos.length) setMainPhoto(product.photos[0].src)
         }
     }, [product])
 
@@ -48,6 +49,9 @@ export const Product: React.FC = () => {
         setCategory(categories.find(category => category.id === categoryId)?.name)
     }
 
+    const changeMainPhoto = (event: any) => {
+        setMainPhoto(event.target.src)
+    }
     if (loading) {
         return (
             <div>
@@ -55,8 +59,6 @@ export const Product: React.FC = () => {
             </div>
         )
     }
-    // @ts-ignore
-    // @ts-ignore
     return (
         <div>
             <section className="container">
@@ -69,7 +71,7 @@ export const Product: React.FC = () => {
                             / <Link
                             to={`/catalog/${product.categoryId}/${product.subcategoryId}`}>{subCategory}</Link>
                             / <Link
-                            to={`/catalog/${product.categoryId}/${product.subcategoryId}/${product.id}`}>{product.name}</Link>
+                            to="#">{product.name}</Link>
                         </div>
                         <div className="product_place">
                             <div className="product_photos_place">
@@ -81,6 +83,7 @@ export const Product: React.FC = () => {
                                                     src={photo.src}
                                                     alt={product.name}
                                                     className="product_card__photo"
+                                                    onClick={changeMainPhoto}
                                                 />
                                             </div>
                                         </div>
@@ -89,7 +92,7 @@ export const Product: React.FC = () => {
                             </div>
                             <div className="product_data_center">
                                 <img
-                                    src={product && product.hasOwnProperty("photos") && product.photos.length ? product?.photos[0].src : ""}
+                                    src={mainPhoto}
                                     alt={product.name}
                                     className="product_main_photo"
                                 />
@@ -98,12 +101,6 @@ export const Product: React.FC = () => {
                                 <div className="product_data__name">
                                     {product.name}
                                 </div>
-                                {/*<div className="product_data__price">*/}
-                                {/*    {product.price} ₽*/}
-                                {/*</div>*/}
-                                {/*<div className="product_data__cell_price">*/}
-                                {/*    {product.cellPrice} ₽*/}
-                                {/*</div>*/}
                                 <div className={product.cellPercent ? "product_data__price with_cell" : "product_data__price"}>
                                     {product.price} ₽
                                 </div>
@@ -139,9 +136,6 @@ export const Product: React.FC = () => {
                 </div>
             </section>
         </div>
-
-
-
     );
 };
 

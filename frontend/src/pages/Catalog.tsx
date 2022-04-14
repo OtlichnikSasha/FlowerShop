@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {Sorting} from "../components/sorting";
-import {Link} from "react-router-dom"
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from "react-router-dom"
 import {SubCategoriesList} from "../components/subCategoriesList";
 import {useActions} from "../hooks/useActions";
 import {CategoriesList} from "../components/categoriesList";
@@ -16,20 +15,23 @@ interface CatalogParams {
     page: string | undefined
 }
 
+interface CategoryState{
+    name: string,
+    id: number
+}
+
 export const Catalog: React.FC = () => {
     console.log(useParams())
     let {categoryId, subCategoryId, page}: CatalogParams = useParams()
-    console.log('Catalog', subCategoryId, categoryId)
     if (categoryId === undefined) categoryId = "1"
     if (subCategoryId === undefined) subCategoryId = "all"
     if (page === undefined) page = "1"
-    const limit = 15;
+    const limit = 12;
     let offset = 0;
-    const [category, setCategory] = useState(null)
+    const [category, setCategory] = useState<CategoryState | null>(null)
     const [subCategory, setSubCategory] = useState("all")
-
-    const {fetchSubCategories, fetchProducts, fetchCreateProduct, fetchCreateFlowers, fetchFlowers} = useActions()
-
+    const {fetchSubCategories, fetchProducts, fetchFlowers} = useActions()
+    const {flowers} = useTypedSelector(state => state.flowers)
     const getSubCategories = useCallback(() => {
         // Создали категории
         // fetchCreateCategory({name: "Букеты"})
@@ -70,8 +72,10 @@ export const Catalog: React.FC = () => {
 
         // Получаем подкатегории по categoryId
         fetchSubCategories({categoryId})
-        fetchFlowers()
+        fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
+        if(!flowers.length) fetchFlowers()
         getNameCategory()
+        document.title = "Каталог";
     }, [categoryId])
 
     useEffect(() => {

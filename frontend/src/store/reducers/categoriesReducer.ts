@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import {getCategories, createCategory} from "../../action-creators/CategoriesActionCreators";
+import {getCategories, createCategory} from "../../api/CategoriesAPI";
 import {CategoriesState} from "../../types/categories";
 
 const initialState : CategoriesState = {

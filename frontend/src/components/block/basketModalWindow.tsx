@@ -1,19 +1,13 @@
 import React, {FC} from 'react';
 interface PropTypes{
-    visible: boolean,
-    setVisible: typeof React.useState
+    onClick: () => void
 }
-export const BasketModalWindow: FC<PropTypes> = ({visible, setVisible}) => {
-    const closeBasket = () => {
-        setVisible(false)
-        const body = document.getElementsByTagName("body")[0];
-        body.style.overflow = "auto";
-    }
+export const BasketModalWindow: FC<PropTypes> = ({onClick}) => {
     return (
         <div className="modal_window_place">
-            <div className="modal_window">
+            <div className="modal_window open">
                 <div className="modal_window__close_place">
-                    <div className="close_place" onClick={closeBasket}>
+                    <div className="close_place" onClick={onClick}>
                         <span className="fa fa-times">
 
                         </span>

@@ -10,22 +10,25 @@ export const Nav: FC = () => {
     const [visibleAuth, setVisibleAuth] = useState(false)
     const openBasket = () => {
         setVisibleBasket(true)
-        const body = document.getElementsByTagName("body")[0];
-        body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+    }
+    const closeBasket = () => {
+        setVisibleBasket(false)
+        document.body.style.overflow = "auto";
     }
 
     const openAuthModal = () => {
         setVisibleAuth(true)
-        const body = document.getElementsByTagName("body")[0];
-        body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
     }
-
-    // @ts-ignore
-    // @ts-ignore
+    const closeAuthModal = () => {
+        setVisibleAuth(false)
+        document.body.style.overflow = "auto";
+    }
     return (
         <div className="block_container">
-            {visibleBasket && <BasketModalWindow visible={visibleBasket} setVisible={setVisibleBasket}/>}
-            {visibleAuth && <AuthModalWindow visible={visibleAuth} setVisible={setVisibleAuth}/>}
+            {visibleBasket && <BasketModalWindow onClick={closeBasket}/>}
+            {visibleAuth && <AuthModalWindow onClick={closeAuthModal}/>}
             <nav className="nav">
                 <div className="nav_item">
                     <NavLink to="/catalog" className="nav_link">
@@ -34,15 +37,17 @@ export const Nav: FC = () => {
                     <div className="categories_list_place">
                         {categories.length && categories.map(category => {
                             return (
-                                <NavLink to={`/catalog/${category.id}/all`} className="nav_link" key={category.id}>
-                                    {category.name}
-                                </NavLink>
+                                <div className="nav_item"  key={category.id}>
+                                    <NavLink to={`/catalog/${category.id}/all`} className="nav_link">
+                                        {category.name}
+                                    </NavLink>
+                                </div>
                             )
                         })}
                     </div>
                 </div>
                 <div className="nav_item">
-                    <NavLink to="/catalog" className="nav_link">
+                    <NavLink to="/delivery_and_payment" className="nav_link">
                         Доставка и оплата
                     </NavLink>
                 </div>
