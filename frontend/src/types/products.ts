@@ -4,7 +4,10 @@ export interface ProductsState {
     status: boolean | null,
     error: string | null,
     loading: boolean,
-    pages: number
+
+    max_price? : number | null,
+    min_price? : number | null,
+    pages? : number | null
 }
 
 interface ProductState{

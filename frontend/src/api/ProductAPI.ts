@@ -15,3 +15,4 @@ export const createProduct = async (data: object) => {
         console.log('error', e.response.data.error)
     }
 }
+

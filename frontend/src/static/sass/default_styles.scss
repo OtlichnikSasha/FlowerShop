@@ -34,7 +34,7 @@ $navy: #293048;
   box-sizing: border-box;
 }
 body{
-  font-family: "Futura PT";
+  font-family: "Futura PT", serif;
 }
 
 
@@ -46,6 +46,44 @@ body{
   display: block;
   max-width: 1400px;
   margin: 0 auto;
+}
+.container_content{
+  margin-top: 20px;
+}
+.container_content__top_data{
+  margin-top: 30px;
+  font-size: 22px;
+  line-height: 28px;
+}
+.container_content__sub_data{
+  font-size: 18px;
+  line-height: 28px;
+  margin-top: 30px;
+}
+.default_btn{
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 18px;
+  background: $pink;
+  cursor: pointer;
+}
+.default_input{
+  border: 2px solid $beige;
+  padding: 10px 5px;
+  width: 100%;
+  border-radius: 5px;
+  transition: all .4s;
+  font-size: 16px;
+}
+.default_input:focus{
+  border: 2px solid $pink;
+  transition: all .4s;
+}
+
+.default_label{
+  font-size: 20px;
 }
 ::-webkit-scrollbar {
   width: 10px;

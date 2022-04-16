@@ -18,12 +18,15 @@ export const fetchProduct = createAsyncThunk(
     }
 )
 
+
 export const fetchCreateProduct = createAsyncThunk(
     'product/fetchCreateProduct',
     async (data: object) => {
         return await createProduct(data);
     }
 )
+
+
 
 const productSlice = createSlice({
     name: 'product',

@@ -28,7 +28,7 @@ export const Nav: FC = () => {
     return (
         <div className="block_container">
             {visibleBasket && <BasketModalWindow onClick={closeBasket}/>}
-            {visibleAuth && <AuthModalWindow onClick={closeAuthModal}/>}
+            {visibleAuth && <AuthModalWindow onClick={closeAuthModal} page={1}/>}
             <nav className="nav">
                 <div className="nav_item">
                     <NavLink to="/catalog" className="nav_link">

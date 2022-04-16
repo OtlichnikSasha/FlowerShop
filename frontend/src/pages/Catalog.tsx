@@ -4,10 +4,10 @@ import {Link, useParams} from "react-router-dom"
 import {SubCategoriesList} from "../components/subCategoriesList";
 import {useActions} from "../hooks/useActions";
 import {CategoriesList} from "../components/categoriesList";
-import {FlowersList} from "../components/flowersList";
 import {ProductsList} from "../components/productsList";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {PageNavigation} from "../components/pageNavigation";
+import {Breadcrumbs} from "../components/block/breadcrumbs";
 
 interface CatalogParams {
     categoryId: string | undefined
@@ -15,7 +15,7 @@ interface CatalogParams {
     page: string | undefined
 }
 
-interface CategoryState{
+interface CategoryState {
     name: string,
     id: number
 }
@@ -30,7 +30,7 @@ export const Catalog: React.FC = () => {
     let offset = 0;
     const [category, setCategory] = useState<CategoryState | null>(null)
     const [subCategory, setSubCategory] = useState("all")
-    const {fetchSubCategories, fetchProducts, fetchFlowers} = useActions()
+    const {fetchSubCategories, fetchProducts, fetchFlowers, fetchProductsData} = useActions()
     const {flowers} = useTypedSelector(state => state.flowers)
     const getSubCategories = useCallback(() => {
         // Создали категории
@@ -73,7 +73,8 @@ export const Catalog: React.FC = () => {
         // Получаем подкатегории по categoryId
         fetchSubCategories({categoryId})
         fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
-        if(!flowers.length) fetchFlowers()
+        fetchProductsData({categoryId, subcategoryId: subCategoryId, limit})
+        if (!flowers.length) fetchFlowers()
         getNameCategory()
         document.title = "Каталог";
     }, [categoryId])
@@ -86,7 +87,7 @@ export const Catalog: React.FC = () => {
     const getProducts = useCallback(() => {
         // Получаем товары по categoryId и subCategoryId
         getNameSubCategory()
-        if(page !== "1") offset = (Number(page)-1) * limit
+        if (page !== "1") offset = (Number(page) - 1) * limit
         fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
     }, [subCategoryId])
 
@@ -113,18 +114,16 @@ export const Catalog: React.FC = () => {
 
     return (
         <section className="container">
-            <div className="breadcrumbs_place">
-                <Link to="/index">Главная</Link> /
-                <Link to="/catalog">Каталог</Link> /
-                <Link to={`/catalog/${categoryId}`}>{category}</Link> /
+            <Breadcrumbs>
+                <Link to="/catalog" className="breadcrumbs_link">Каталог</Link> /
+                <Link to={`/catalog/${categoryId}`} className="breadcrumbs_link">{category}</Link> /
                 <Link
-                    to={`/catalog/${categoryId}/${subCategory}`}>{subCategoryId === "all" ? "Все" : subCategory}</Link>
-            </div>
+                    to={`/catalog/${categoryId}/${subCategory}`} className="breadcrumbs_link">{subCategoryId === "all" ? "Все" : subCategory}</Link>
+            </Breadcrumbs>
             <div className="catalog_place">
                 <div className="sorting_place">
                     <CategoriesList categoryId={categoryId}/>
-                    <Sorting/>
-                    <FlowersList/>
+                    <Sorting categoryId={categoryId} subcategoryId={subCategoryId}/>
                 </div>
                 <div className="catalog_products_place">
                     <SubCategoriesList categoryId={categoryId} subCategoryId={subCategoryId}/>

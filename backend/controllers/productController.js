@@ -1,5 +1,6 @@
 const {Product} = require("../models/index")
 const {Photo} = require("../models/index");
+const {ProductDetails} = require("../models/index");
 
 class ProductController {
     async createProduct(req, res) {
@@ -18,14 +19,15 @@ class ProductController {
 
     async getProduct(req, res) {
         const {id} = req.query
-        console.log('id', id)
         try{
             const product = await Product.findOne(
                 {
                     where: {id},
-                    include: [{model: Photo, as: 'photos'}]
+                    include:  [{model: Photo, as: 'photos'}],
                 }
             )
+            const views = product.views + 1
+            await product.update({views}, { where: { id: product.id} })
             return res.json(product)
         }
         catch(e){

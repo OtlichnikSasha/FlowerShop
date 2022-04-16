@@ -2,6 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {Link, useParams} from "react-router-dom";
 import {useActions} from "../hooks/useActions";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {Breadcrumbs} from "../components/block/breadcrumbs";
 
 interface ProductParams {
     id: string
@@ -64,15 +65,17 @@ export const Product: React.FC = () => {
             <section className="container">
                 {product && !loading &&
                     <>
-                        <div className="breadcrumbs_place">
-                            <Link to="/index">Главная</Link>
-                            / <Link to="/catalog">Каталог</Link>
-                            / <Link to={`/catalog/${product.categoryId}`}>{category}</Link>
+                        <Breadcrumbs>
+                            <Link to="/catalog" className="breadcrumbs_link">Каталог</Link>
+                            / <Link to={`/catalog/${product.categoryId}`} className="breadcrumbs_link">{category}</Link>
+                            / <Link to={`/catalog/${product.categoryId}/${product.subcategoryId}`}
+                                    className="breadcrumbs_link"
+                             >
+                            {subCategory}
+                        </Link>
                             / <Link
-                            to={`/catalog/${product.categoryId}/${product.subcategoryId}`}>{subCategory}</Link>
-                            / <Link
-                            to="#">{product.name}</Link>
-                        </div>
+                            to="#" className="breadcrumbs_link">{product.name}</Link>
+                        </Breadcrumbs>
                         <div className="product_place">
                             <div className="product_photos_place">
                                 {product.hasOwnProperty("photos") && product.photos.length && product.photos.map(photo => {

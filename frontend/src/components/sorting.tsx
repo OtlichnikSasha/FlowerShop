@@ -1,17 +1,39 @@
-import {FC, useState} from 'react';
-
-export const Sorting: FC = () => {
+import React, {FC, useEffect, useState} from 'react';
+import {FlowersList} from "./flowersList";
+import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useActions} from "../hooks/useActions";
+interface PropsTypes{
+    categoryId: string,
+    subcategoryId: string
+}
+export const Sorting: FC<PropsTypes> = ({categoryId, subcategoryId}) => {
+    const {fetchSortingProducts} = useActions()
+    const {max_price, min_price} = useTypedSelector(state => state.products)
     const [sortedData, setSortedData] = useState({
         sortedType: 1,
         cost_start: 0,
         cost_end: 5000,
-        flowers: []
+        flowers: [],
+        categoryId: categoryId,
+        subcategoryId: subcategoryId
     })
     const changeHandler = (event: any) => {
         setSortedData({
             ...sortedData,
             [event.target.name]: !isNaN(event.target.value) ? Number(event.target.value) : event.target.value,
         })
+    }
+
+    // useEffect(() => {
+    //     if(max_price && min_price){
+    //         setSortedData({...sortedData, cost_start: min_price, cost_end: max_price})
+    //     }
+    // }, [max_price, min_price])
+
+    console.log('max_price/min_price', max_price, min_price)
+
+    const startSorting = () => {
+        fetchSortingProducts(sortedData)
     }
     return (
         <>
@@ -78,6 +100,12 @@ export const Sorting: FC = () => {
                     </div>
                     <input type="range" value={sortedData.cost_end} name="cost_end" onChange={changeHandler}/>
                 </div>
+
+
+            </div>
+            <FlowersList/>
+            <div className="default_btn" onClick={startSorting}>
+                Найти
             </div>
         </>
     );

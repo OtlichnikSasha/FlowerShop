@@ -9,8 +9,10 @@ interface PropTypes {
 export const PageNavigation: FC<PropTypes> = ({page}) => {
     const {pages} = useTypedSelector(state => state.products)
     const pages_array = [];
-    for (let i = 1; i < pages + 1; i++) {
-        pages_array.push(i)
+    if(pages){
+        for (let i = 1; i < pages + 1; i++) {
+            pages_array.push(i)
+        }
     }
     console.log("pages_array", pages_array)
 
