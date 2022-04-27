@@ -1,8 +1,9 @@
 import {FC} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Link} from "react-router-dom";
-import {Empty} from "./empty";
-
+import {Empty} from "./block/empty";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPercent, faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 export const ProductsList: FC = (P) => {
     const {products, loading} = useTypedSelector(state => state.products)
     return (
@@ -23,9 +24,7 @@ export const ProductsList: FC = (P) => {
                                         <div className="product_card__cell_place">
                                             <div className="cell_place_flex">
                                                 <div className="cell_percent_place">
-                                            <span className="fa fa-percent">
-
-                                            </span>
+                                                    <FontAwesomeIcon icon={faPercent}/>
                                                 </div>
                                                 <div className="cell_data">
                                                     {product.cellPercent} % скидка
@@ -34,9 +33,7 @@ export const ProductsList: FC = (P) => {
                                         </div>
                                     }
                                     <div className="product_card__favorites_place">
-                                <span className="fas fa-heart">
-
-                                </span>
+                                        <FontAwesomeIcon icon={faHeart}/>
                                     </div>
                                 </div>
                                 <div className="product_card__data_place">
@@ -57,9 +54,7 @@ export const ProductsList: FC = (P) => {
                                             }
                                         </div>
                                         <div className="product_data__basket_place">
-                                    <span className="fas fa-shopping-bag">
-
-                                    </span>
+                                            <FontAwesomeIcon icon={faShoppingBag}/>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +62,7 @@ export const ProductsList: FC = (P) => {
                         )
                     })
                     :
-                    <Empty/>
+                    <Empty loading={loading} label="Товаров не найдено!"/>
             }
         </div>
     );

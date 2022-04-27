@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import {BasketState} from "../../types/basket";
-import {getBasket} from "../../api/BasketAPI";
+import {getBasket} from "../../api/index";
 
 const initialState : BasketState = {
     basket: {},

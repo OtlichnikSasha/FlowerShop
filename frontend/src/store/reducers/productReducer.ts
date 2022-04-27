@@ -1,6 +1,6 @@
 import {ProductState} from "../../types/product";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getProduct, createProduct} from "../../api/ProductAPI";
+import {getProduct, createProduct} from "../../api/index";
 
 
 const initialState : ProductState = {
@@ -25,8 +25,6 @@ export const fetchCreateProduct = createAsyncThunk(
         return await createProduct(data);
     }
 )
-
-
 
 const productSlice = createSlice({
     name: 'product',

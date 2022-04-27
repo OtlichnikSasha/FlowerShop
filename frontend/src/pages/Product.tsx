@@ -9,6 +9,7 @@ interface ProductParams {
 }
 
 export const Product: React.FC = () => {
+    // @ts-ignore
     const {id}: ProductParams = useParams()
     const [category, setCategory] = useState(null)
     const [subCategory, setSubCategory] = useState(null)

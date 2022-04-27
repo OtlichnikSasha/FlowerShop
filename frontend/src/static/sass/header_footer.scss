@@ -233,7 +233,7 @@
 .close_place{
   font-size: 20px;
   cursor: pointer;
-  .fa-times{
+  .fa-xmark{
     margin-right: 10px;
   }
 }
@@ -259,3 +259,13 @@
   width: 100%;
 }
 /* Authorization/Registration */
+.offer_to_go{
+  text-align: center;
+  margin-top: 25px;
+  font-size: 18px;
+  span{
+    color: #446aec;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

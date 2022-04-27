@@ -11,7 +11,7 @@ import {Breadcrumbs} from "../components/block/breadcrumbs";
 
 interface CatalogParams {
     categoryId: string | undefined
-    subCategoryId: string | undefined,
+    subCategoryId: string | undefined
     page: string | undefined
 }
 
@@ -21,7 +21,7 @@ interface CategoryState {
 }
 
 export const Catalog: React.FC = () => {
-    console.log(useParams())
+    // @ts-ignore
     let {categoryId, subCategoryId, page}: CatalogParams = useParams()
     if (categoryId === undefined) categoryId = "1"
     if (subCategoryId === undefined) subCategoryId = "all"

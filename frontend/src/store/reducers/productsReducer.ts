@@ -1,6 +1,6 @@
 import {ProductsState} from "../../types/products";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getProducts, sortingProduct, getProductsData} from "../../api/ProductsAPI";
+import {getProducts, sortingProduct, getProductsData} from "../../api/index";
 const initialState : ProductsState = {
     products: [],
     status: false,
@@ -49,8 +49,8 @@ const productsSlice = createSlice({
             .addCase(fetchProducts.fulfilled, (state: ProductsState, action) => {
                 console.log('products', action)
                 state.loading = false
-                state.products = action.payload?.data
-                state.status = true
+                state.products = action.payload.data
+                state.status = action.payload.status
                 state.error = ''
             })
             .addCase(fetchProducts.rejected, state => {
@@ -63,29 +63,29 @@ const productsSlice = createSlice({
             .addCase(fetchSortingProducts.fulfilled, (state: ProductsState, action) => {
                 console.log('sortingProducts', action)
                 state.loading = false
-                state.products = action.payload?.data
+                state.products = action.payload.data
                 state.status = true
                 state.error = ''
             })
             .addCase(fetchSortingProducts.rejected, state => {
                 state.loading = false
             })
-            // Получение данных товаров
-            .addCase(fetchProductsData.pending, state => {
-                state.loading = true
-            })
-            .addCase(fetchProductsData.fulfilled, (state: ProductsState, action) => {
-                console.log('ProductsData', action)
-                state.loading = false
-                state.max_price = action.payload?.data.max_price
-                state.min_price = action.payload?.data.min_price
-                state.pages = action.payload?.data.pages
-                state.status = true
-                state.error = ''
-            })
-            .addCase(fetchProductsData.rejected, state => {
-                state.loading = false
-            })
+            // // Получение данных товаров
+            // .addCase(fetchProductsData.pending, state => {
+            //     state.loading = true
+            // })
+            // .addCase(fetchProductsData.fulfilled, (state: ProductsState, action) => {
+            //     console.log('ProductsData', action)
+            //     state.loading = false
+            //     state.max_price = action.payload?.data.max_price
+            //     state.min_price = action.payload?.data.min_price
+            //     state.pages = action.payload?.data.pages
+            //     state.status = true
+            //     state.error = ''
+            // })
+            // .addCase(fetchProductsData.rejected, state => {
+            //     state.loading = false
+            // })
 
 
             .addDefaultCase(() => {

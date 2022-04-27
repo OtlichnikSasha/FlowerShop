@@ -1,10 +1,18 @@
-import React, {useState, FC} from 'react';
-import {NavLink} from 'react-router-dom'
+import React, {useState, FC, useContext} from 'react';
+import {NavLink, useNavigate} from 'react-router-dom'
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {BasketModalWindow} from "./basketModalWindow";
 import {AuthModalWindow} from "./authModalWindow";
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faHeart, faShoppingBag, faUser, faSignOut} from '@fortawesome/free-solid-svg-icons'
+import {useAuth} from "../../hooks/auth_hook";
+import {AuthContext} from "../../context/AuthContext";
 export const Nav: FC = () => {
+    const [page, setPage] = useState(1)
+    const {token} = useAuth()
+    const isAuthenticated = !!token
+    const auth = useContext(AuthContext)
+    const navigate = useNavigate()
     const {categories} = useTypedSelector(state => state.categories)
     const [visibleBasket, setVisibleBasket] = useState(false)
     const [visibleAuth, setVisibleAuth] = useState(false)
@@ -25,10 +33,15 @@ export const Nav: FC = () => {
         setVisibleAuth(false)
         document.body.style.overflow = "auto";
     }
+
+    const logoutUser = () => {
+        auth.logout()
+        navigate("/index")
+    }
     return (
         <div className="block_container">
             {visibleBasket && <BasketModalWindow onClick={closeBasket}/>}
-            {visibleAuth && <AuthModalWindow onClick={closeAuthModal} page={1}/>}
+            {visibleAuth && <AuthModalWindow onClick={closeAuthModal} page={page} setPage={setPage}/>}
             <nav className="nav">
                 <div className="nav_item">
                     <NavLink to="/catalog" className="nav_link">
@@ -37,7 +50,7 @@ export const Nav: FC = () => {
                     <div className="categories_list_place">
                         {categories.length && categories.map(category => {
                             return (
-                                <div className="nav_item"  key={category.id}>
+                                <div className="nav_item" key={category.id}>
                                     <NavLink to={`/catalog/${category.id}/all`} className="nav_link">
                                         {category.name}
                                     </NavLink>
@@ -66,27 +79,50 @@ export const Nav: FC = () => {
                 </div>
             </div>
             <div className="right_nav">
-                <NavLink to="/favorites" className="right_nav__item">
-                    <div className="right_nav__item icon">
-                            <span className="fas fa-heart">
+                {
+                    isAuthenticated ?
+                        <>
+                            <NavLink to="/favorites" className="right_nav__item">
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faHeart}/>
+                                </div>
+                            </NavLink>
+                            <div className="right_nav__item" onClick={openBasket}>
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faShoppingBag}/>
+                                </div>
+                            </div>
+                            <NavLink to="/cabinet" className="right_nav__item">
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faUser}/>
+                                </div>
+                            </NavLink>
+                            <div className="right_nav__item" onClick={logoutUser}>
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faSignOut}/>
+                                </div>
+                            </div>
+                        </>
+                        :
+                        <>
+                            <div className="right_nav__item" onClick={openAuthModal}>
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faHeart}/>
+                                </div>
+                            </div>
+                            <div className="right_nav__item" onClick={openBasket}>
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faShoppingBag}/>
+                                </div>
+                            </div>
+                            <div className="right_nav__item" onClick={openAuthModal}>
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faUser}/>
+                                </div>
+                            </div>
+                        </>
+                }
 
-                            </span>
-                    </div>
-                </NavLink>
-                <div className="right_nav__item" onClick={openBasket}>
-                    <div className="right_nav__item icon">
-                            <span className="fas fa-shopping-bag">
-
-                            </span>
-                    </div>
-                </div>
-                <div className="right_nav__item" onClick={openAuthModal}>
-                    <div className="right_nav__item icon">
-                            <span className="fas fa-user">
-
-                            </span>
-                    </div>
-                </div>
             </div>
         </div>
 

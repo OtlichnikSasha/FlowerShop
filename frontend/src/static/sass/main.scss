@@ -546,3 +546,46 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 20px;
   letter-spacing: 0.05em;
 }
+
+/* Notification */
+.notification {
+  transform: translate(120%, 0);
+  position: fixed;
+  bottom: 40px;
+  right: 15px;
+  transition: transform .4s;
+  width: auto;
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.notification._active {
+  transform: translate(0, 0);
+  transition: transform .4s;
+}
+
+.notification_data {
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.notification_data.success {
+  background: #4ffa4f;
+}
+
+.notification_data.error {
+  background: #c90303;
+}
+
+.notification_heading {
+  text-align: center;
+  border-bottom: 2px solid $grey;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.notification_text {
+  text-align: center;
+  font-size: 14px;
+  padding: 10px 20px;
+}
