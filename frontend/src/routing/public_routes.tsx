@@ -36,7 +36,7 @@ export const publicRoutes = [
         element: <Product/>
     },
     {
-        path: "weddingFlorist",
+        path: "/weddingFlorist",
         element: <WeddingFlorist/>
     },
     {

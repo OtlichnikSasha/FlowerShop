@@ -70,22 +70,25 @@ const productsSlice = createSlice({
             .addCase(fetchSortingProducts.rejected, state => {
                 state.loading = false
             })
-            // // Получение данных товаров
-            // .addCase(fetchProductsData.pending, state => {
-            //     state.loading = true
-            // })
-            // .addCase(fetchProductsData.fulfilled, (state: ProductsState, action) => {
-            //     console.log('ProductsData', action)
-            //     state.loading = false
-            //     state.max_price = action.payload?.data.max_price
-            //     state.min_price = action.payload?.data.min_price
-            //     state.pages = action.payload?.data.pages
-            //     state.status = true
-            //     state.error = ''
-            // })
-            // .addCase(fetchProductsData.rejected, state => {
-            //     state.loading = false
-            // })
+            // Получение данных товаров
+            .addCase(fetchProductsData.pending, state => {
+                state.loading = true
+            })
+            .addCase(fetchProductsData.fulfilled, (state: ProductsState, action) => {
+                console.log('ProductsData', action)
+                state.loading = false
+                //@ts-ignore
+                state.max_price = action.payload?.data.max_price
+                //@ts-ignore
+                state.min_price = action.payload?.data.min_price
+                //@ts-ignore
+                state.pages = action.payload?.data.pages
+                state.status = true
+                state.error = ''
+            })
+            .addCase(fetchProductsData.rejected, state => {
+                state.loading = false
+            })
 
 
             .addDefaultCase(() => {

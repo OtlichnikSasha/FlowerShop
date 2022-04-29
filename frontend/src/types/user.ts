@@ -1,5 +1,5 @@
 export interface UserState {
-    user: object | null,
+    user: UserEntity | null,
     status: boolean | null,
     error: string | null,
     loading: boolean
@@ -13,6 +13,25 @@ export interface UserState {
     //     birthday: string,
     //     bonus_count: number
     // }
+}
+
+export interface UserEntity {
+    id: number,
+    email: string,
+    name: string | null,
+    surname: string | null,
+    addresses: [],
+    phone: string,
+    birthday: string,
+    bonus_count: number
+}
+
+export interface LoginUserState {
+    userId: number,
+    token: string,
+    status: boolean | null,
+    error: string | null,
+    loading: boolean
 }
 
 export interface RegistrationUserData {

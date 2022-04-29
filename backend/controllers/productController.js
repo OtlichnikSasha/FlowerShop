@@ -1,21 +1,26 @@
-const {Product} = require("../models/index")
-const {Photo} = require("../models/index");
-const {ProductDetails} = require("../models/index");
+const {Product, User} = require("../models/index")
 
 class ProductController {
     async createProduct(req, res) {
-        const {name, categoryId, subCategoryId, price, cellPrice, description, cellPercent} = req.body
-        const product = await Product.create({
-            name,
-            categoryId,
-            subCategoryId,
-            price,
-            cellPrice,
-            description,
-            cellPercent
-        })
-        return res.json(product)
+        try{
+            const {name, categoryId, subCategoryId, price, cellPrice, description, cellPercent} = req.body
+            const product = await Product.create({
+                name,
+                categoryId,
+                subCategoryId,
+                price,
+                cellPrice,
+                description,
+                cellPercent
+            })
+            return res.json(product)
+        }
+        catch (e){
+            return res.status(500).json({message: e.message})
+        }
     }
+
+
 
     async getProduct(req, res) {
         const {id} = req.query
@@ -23,7 +28,9 @@ class ProductController {
             const product = await Product.findOne(
                 {
                     where: {id},
-                    include:  [{model: Photo, as: 'photos'}],
+                    include:  [
+                        {all: true},
+                    ],
                 }
             )
             const views = product.views + 1
@@ -31,9 +38,8 @@ class ProductController {
             return res.json(product)
         }
         catch(e){
-            console.log('e', e)
+            return res.status(500).json({message: e.message})
         }
-
     }
 }
 

@@ -31,7 +31,7 @@ export const Product: React.FC = () => {
             getNameCategory(product.categoryId)
             getNameSubCategory(product.subcategoryId)
             document.title = product.name
-            if(product.hasOwnProperty("photos") && product.photos.length) setMainPhoto(product.photos[0].src)
+            if (product.hasOwnProperty("photos") && product.photos.length) setMainPhoto(product.photos[0].src)
         }
     }, [product])
 
@@ -71,7 +71,7 @@ export const Product: React.FC = () => {
                             / <Link to={`/catalog/${product.categoryId}`} className="breadcrumbs_link">{category}</Link>
                             / <Link to={`/catalog/${product.categoryId}/${product.subcategoryId}`}
                                     className="breadcrumbs_link"
-                             >
+                        >
                             {subCategory}
                         </Link>
                             / <Link
@@ -105,7 +105,8 @@ export const Product: React.FC = () => {
                                 <div className="product_data__name">
                                     {product.name}
                                 </div>
-                                <div className={product.cellPercent ? "product_data__price with_cell" : "product_data__price"}>
+                                <div
+                                    className={product.cellPercent ? "product_data__price with_cell" : "product_data__price"}>
                                     {product.price} ₽
                                 </div>
                                 {
@@ -126,9 +127,17 @@ export const Product: React.FC = () => {
                                 <div className="product_data__heading">
                                     Детали
                                 </div>
-                                <div className="product_data__details">
-
-                                </div>
+                                {product.details.length ? product.details.map(detail => {
+                                    return (
+                                        <div className="product_data__details" key={detail.id}>
+                                            <div>{detail.key}</div>
+                                            <div>{detail.value}</div>
+                                        </div>
+                                    )
+                                })
+                                :
+                                    <></>
+                                }
                             </div>
                         </div>
                     </>

@@ -62,11 +62,10 @@ export const createFlower = async (data: object) => {
 }
 
 // User
-export const fetchUser = async () => {
+export const getUser = async (args: object) => {
     const url = `user`;
-    return await api.post(url, {});
+    return await api.get(url, args);
 }
-
 
 export const registration = async (data: RegistrationUserData) => {
     const url = `user/registration`;
@@ -82,6 +81,15 @@ export const authorization = async (data: AuthorizationUserData) => {
 export const getBasket = async (args: object) =>{
     const url = `basket`;
     return await api.get(url, args);
+}
+interface AddBasketData{
+    userId: number,
+    productId: number,
+    count: number
+}
+export const addToBasket = async (data: AddBasketData) =>{
+    const url = `basket`;
+    return await api.post(url, data);
 }
 
 

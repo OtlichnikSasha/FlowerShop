@@ -4,15 +4,15 @@ import {Cabinet} from "../pages/Cabinet";
 
 export const authRoutes = [
     {
-        path: "favorites",
-        element: Favorites
+        path: "/favorites",
+        element: <Favorites/>
     },
     {
-        path: "cabinet",
-        element: Cabinet
+        path: "/cabinet",
+        element: <Cabinet/>
     },
     {
-        path: "basket",
-        element: Basket
+        path: "/basket",
+        element: <Basket/>
     }
 ]

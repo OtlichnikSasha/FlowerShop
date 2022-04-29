@@ -1,7 +1,8 @@
 import React from 'react';
 import {Nav} from "./nav";
 import {Link} from "react-router-dom";
-
+import { faVk, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 export const Footer = () => {
     return (
         <footer className="footer">
@@ -42,17 +43,17 @@ export const Footer = () => {
                         <div className="social_network_place">
                             <a className="right_nav__item" href="" target="_blank">
                                 <div className="right_nav__item icon">
-                                    <span className="fab fa-instagram"/>
+                                    <FontAwesomeIcon icon={faInstagram}/>
                                 </div>
                             </a>
                             <a className="right_nav__item" href="" target="_blank">
                                 <div className="right_nav__item icon">
-                                    <span className="fab fa-vk"/>
+                                    <FontAwesomeIcon icon={faVk}/>
                                 </div>
                             </a>
                             <a className="right_nav__item" href="" target="_blank">
                                 <div className="right_nav__item icon">
-                                    <span className="fab fa-facebook"/>
+                                    <FontAwesomeIcon icon={faFacebook}/>
                                 </div>
                             </a>
                         </div>

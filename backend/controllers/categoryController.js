@@ -2,14 +2,25 @@ const {Category} = require("../models/index")
 
 class CategoryController{
     async getCategories(req, res){
-        const categories = await Category.findAll()
-        return res.json(categories)
+        try{
+            const categories = await Category.findAll()
+            return res.json(categories)
+        }
+        catch(e){
+            return res.status(500).json({message: e.message})
+        }
+
     }
 
     async createCategory(req, res){
-        const {name} = req.body
-        const category = await Category.create({name})
-        return res.json(category)
+        try{
+            const {name} = req.body
+            const category = await Category.create({name})
+            return res.json(category)
+        }
+        catch(e){
+            return res.status(500).json({message: e.message})
+        }
     }
 }
 

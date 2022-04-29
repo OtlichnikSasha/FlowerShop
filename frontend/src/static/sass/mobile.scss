@@ -1,0 +1,24 @@
+@media screen and (max-width: 1400px){
+  .container{
+    padding: 0 15px 50px;
+  }
+  .block_container{
+    padding: 0 15px;
+  }
+}
+@media screen and (min-width: 901px){
+  .catalog_products_place{
+    width: 70%;
+  }
+}
+@media screen and (max-width: 900px){
+  .sorting_place{
+    display: none;
+  }
+  .catalog_products_place{
+    width: 100%;
+  }
+  .nav{
+    display: none;
+  }
+}

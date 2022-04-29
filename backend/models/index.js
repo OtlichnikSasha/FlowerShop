@@ -53,11 +53,17 @@ const Category = sequelize.define('category', {
 })
 
 const BasketProduct = sequelize.define('basket_product', {
+    count: {type: DataTypes.INTEGER}
 })
 
 const Basket = sequelize.define('basket', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
-})
+        id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+    },
+    {
+        freezeTableName: true,
+        tableName: 'basket'
+    }
+)
 
 // Basket содержит поле userID
 User.hasOne(Basket)
@@ -85,12 +91,12 @@ Product.hasMany(Photo, {as: 'photos'})
 Photo.belongsTo(Product)
 
 // FlowerProduct содержит productID и flowerID
-Product.belongsToMany(Flower, {through: FlowerProduct })
-Flower.belongsToMany(Product, {through: FlowerProduct })
+Product.belongsToMany(Flower, {through: FlowerProduct})
+Flower.belongsToMany(Product, {through: FlowerProduct})
 
 // BasketProduct содержит productID и basketID
-Basket.belongsToMany(Product, {through: BasketProduct })
-Product.belongsToMany(Basket, {through: BasketProduct })
+Basket.belongsToMany(Product, {through: BasketProduct})
+Product.belongsToMany(Basket, {through: BasketProduct})
 
 module.exports = {
     User,

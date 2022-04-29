@@ -1,11 +1,19 @@
 import {FC} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {useActions} from "../hooks/useActions";
 import {Link} from "react-router-dom";
 import {Empty} from "./block/empty";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPercent, faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import {useAuth} from "../hooks/auth_hook";
 export const ProductsList: FC = (P) => {
+    const {id} = useAuth()
+    const {fetchAddBasket} = useActions()
     const {products, loading} = useTypedSelector(state => state.products)
+
+    const addBasket = (productId: number) => {
+        fetchAddBasket({userId: id, productId, count: 1})
+    }
     return (
         <div className="products_place">
             {
@@ -53,7 +61,7 @@ export const ProductsList: FC = (P) => {
                                                 </div>
                                             }
                                         </div>
-                                        <div className="product_data__basket_place">
+                                        <div className="product_data__basket_place" onClick={() => addBasket(product.id)}>
                                             <FontAwesomeIcon icon={faShoppingBag}/>
                                         </div>
                                     </div>

@@ -2,10 +2,27 @@ require('dotenv').config()
 const {check, validationResult} = require('express-validator'),
     jwt = require('jsonwebtoken'),
     hash_pas = require('bcryptjs'),
-    {User} = require("../models");
+    {User, Basket} = require("../models");
 
 
 class UserController {
+    async getUser(req, res){
+        try{
+           const {id} = req.query
+           const user = await User.findOne({where: {id}, attributes: ['id', 'email', 'bonusCount', 'name', 'surname', 'addresses'] })
+            if (!user) {
+                return res.status(400).json({
+                    message: 'Нет такого пользователя!',
+                })
+            }
+            return res.json(user)
+        }
+        catch(e){
+            return res.status(500).json({message: e.message})
+        }
+    }
+
+
     async registration(req, res) {
         try {
             let {email, password, repeatPassword} = req.body
@@ -16,13 +33,11 @@ class UserController {
             if (!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
-                    status: 'error',
                     message: 'Некорректные данные'
                 })
             }
             if (password !== repeatPassword) {
                 return res.status(400).json({
-                    status: 'error',
                     message: 'Пароли не совпадают'
                 })
             }
@@ -30,15 +45,16 @@ class UserController {
             if (uniq) {
                 return res.status(400).json({
                     message: 'Пользователь с таким Email уже зарегистрирован',
-                    status: 'error'
                 })
             }
             const hashPassword = await hash_pas.hash(password, 12)
-            console.log('hashPassword', hashPassword)
             const user = await User.create({email, password: hashPassword})
+            const basket = await Basket.create({
+                userId: user.id
+            })
             return res.json(user)
         } catch (e) {
-            console.log('e')
+            return res.status(500).json({message: e.message})
         }
     }
 
@@ -51,33 +67,30 @@ class UserController {
             if (!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
-                    status: 'error',
                     message: 'Некорректные данные'
                 })
             }
             const user = await User.findOne({where: {email} })
             if(!user){
                 return res.status(400).json({
-                    status: 'error',
                     message: 'Пользователя с таким Email не зарегистрировано'
                 })
             }
             const checkPas = await hash_pas.compare(password, user.password);
             if (!checkPas) {
                 return res.status(400).json({
-                    status: 'error',
                     message: 'Пароль введён неверно!'
                 })
             }
             const token = jwt.sign(
-                {user: user},
+                {userId: user.id},
                 process.env.SECRET_KEY,
                 {expiresIn: '24h'}
             )
-            res.json({'token': token, 'user': user})
+            res.json({'token': token, 'userId': user.id})
         }
         catch (e){
-            return res.status(500).json({message: e.message, status: 'error'})
+            return res.status(500).json({message: e.message})
         }
     }
 }

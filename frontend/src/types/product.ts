@@ -9,7 +9,8 @@ export interface ProductState{
         description: string,
         views: number,
         cellPercent: number,
-        photos: PhotoState[]
+        photos: PhotoState[],
+        details: any[]
     },
     status: boolean | null,
     error: string | null,

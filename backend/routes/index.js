@@ -15,5 +15,6 @@ router.use("/categories", categoryRouter)
 router.use("/subCategories", subCategoryRouter)
 router.use("/basket", basketRouter)
 router.use("/flowers", flowersRouter)
+router.use("/basket", basketRouter)
 
 module.exports = router

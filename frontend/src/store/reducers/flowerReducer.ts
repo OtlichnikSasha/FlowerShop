@@ -13,7 +13,6 @@ const initialState : FlowersState = {
 export const fetchFlowers = createAsyncThunk(
     'flowers/fetchFlowers',
     async () => {
-        console.log('fetchFlowers')
         return await getFlowers();
     }
 )

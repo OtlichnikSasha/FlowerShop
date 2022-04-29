@@ -10,6 +10,7 @@ import {useAuth} from "../hooks/auth_hook";
 const Router = () => {
     const {token} = useAuth()
     const isAuthenticated = !!token
+    console.log('token', token, isAuthenticated)
     return (
         <Routes>
             {isAuthenticated && authRoutes.map(({path, element}) =>

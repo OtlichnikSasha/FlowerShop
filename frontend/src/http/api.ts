@@ -15,7 +15,7 @@ export class api {
                 result.data = res.data;
             }
         } catch (e: any) {
-            console.log('error', e.response.data.error)
+            console.log('error', e.response.data.message)
             result.error = e.response.data.message
         }
         return result;
@@ -32,11 +32,10 @@ export class api {
             console.log('res', res)
             if (res.status === 200) {
                 result.status = true;
-                result.data = res.data.result;
+                result.data = res.data;
             }
         } catch (e: any) {
             console.log('e.response', e.response)
-            console.log('error', e.response.data.error)
             result.error = e.response.data.message
         }
         return result
@@ -52,11 +51,10 @@ export class api {
             const res = await http.put(url, data, { params: { ...args } });
             if (res.status === 200) {
                 result.status = true;
-                result.data = res.data.result;
+                result.data = res.data;
             }
         } catch (e: any) {
             console.log('e.response', e.response)
-            console.log('error', e.response.data.error)
             result.error = e.response.data.message
         }
         return result;

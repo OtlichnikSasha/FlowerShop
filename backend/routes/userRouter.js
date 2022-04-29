@@ -2,7 +2,7 @@ const Router = require("express")
 const router = new Router()
 const userController = require("../controllers/userController")
 
-router.get("/")
+router.get("/", userController.getUser)
 router.post("/authorization", userController.authorization)
 router.post("/registration", userController.registration)
 

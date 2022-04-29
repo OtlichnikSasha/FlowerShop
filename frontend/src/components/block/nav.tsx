@@ -2,13 +2,12 @@ import React, {useState, FC, useContext} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {BasketModalWindow} from "./basketModalWindow";
-import {AuthModalWindow} from "./authModalWindow";
+import {UserModalWindow} from "./userModalWindow";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart, faShoppingBag, faUser, faSignOut} from '@fortawesome/free-solid-svg-icons'
 import {useAuth} from "../../hooks/auth_hook";
 import {AuthContext} from "../../context/AuthContext";
 export const Nav: FC = () => {
-    const [page, setPage] = useState(1)
     const {token} = useAuth()
     const isAuthenticated = !!token
     const auth = useContext(AuthContext)
@@ -41,7 +40,7 @@ export const Nav: FC = () => {
     return (
         <div className="block_container">
             {visibleBasket && <BasketModalWindow onClick={closeBasket}/>}
-            {visibleAuth && <AuthModalWindow onClick={closeAuthModal} page={page} setPage={setPage}/>}
+            {visibleAuth && <UserModalWindow onClick={closeAuthModal}/>}
             <nav className="nav">
                 <div className="nav_item">
                     <NavLink to="/catalog" className="nav_link">
@@ -122,7 +121,6 @@ export const Nav: FC = () => {
                             </div>
                         </>
                 }
-
             </div>
         </div>
 

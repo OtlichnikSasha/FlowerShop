@@ -1,4 +1,5 @@
 @import "header_footer";
+@import "mobile";
 
 .uppercase_heading{
   color: #353925;
@@ -8,6 +9,10 @@
 .heading{
   font-weight: bold;
   font-size: 28px;
+}
+.subheading{
+  font-weight: bold;
+  font-size: 18px;
 }
 
 /*=== Catalog ===*/
@@ -20,7 +25,7 @@
 /* Левая часть */
 .sorting_place{
   width: 25%;
-  padding: 0 15px;
+  padding-right:15px;
   height: 100%;
   margin-right: 5%;
 }
@@ -296,7 +301,6 @@ input[type=range]:focus::-ms-fill-upper {
 /*== Правая часть ==*/
 /* Подкатегории */
 .catalog_products_place{
-  width: 70%;
   padding: 10px 0;
 }
 
@@ -316,10 +320,12 @@ input[type=range]:focus::-ms-fill-upper {
   font-weight: 600;
   padding: 10px 15px;
   min-width: 95px;
+  transition: all .4s;
 }
 .subcategories_item._active{
   background: $pink;
-  transition: background .4s;
+  transition: all .4s;
+  color: #FFFFFF;
 }
 .subcategories_item__link{
   font-size: 16px;
@@ -459,6 +465,30 @@ input[type=range]:focus::-ms-fill-upper {
     font-size: 20px;
   }
 }
+/* Постраничная навигация */
+.pagination_place{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+.pagination_place__item{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $beige;
+  font-size: 16px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.pagination_place__item._active{
+  background: $pink;
+}
+
 /*=== Product Page ===*/
 .product_place{
   width: 100%;
@@ -508,30 +538,76 @@ input[type=range]:focus::-ms-fill-upper {
   padding: 25px 0;
 }
 
-/* Постраничная навигация */
-.pagination_place{
+
+/*==== Cabinet =====*/
+.heading_block{
+  background: #e9eaec;
+  padding: 40px 0;
+  margin-top: -30px;
+  .heading{
+    text-align: center;
+  }
+  .subheading{
+    text-align: center;
+    margin-top: 15px;
+  }
+}
+.cabinet_navigation_place{
   display: flex;
-  width: 100%;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin: 20px 0;
 }
-.pagination_place__item{
-  width: 30px;
-  height: 30px;
+.cabinet_navigation_item{
+  border-radius: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $beige;
-  font-size: 16px;
-  border-radius: 50%;
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+  background: #d4d6da;
+  text-transform: uppercase;
+  padding: 0 20px;
   font-weight: bold;
+  cursor: pointer;
+  transition: all .4s;
 }
-.pagination_place__item._active{
+.cabinet_navigation_item:last-child{
+  margin-right: 0;
+}
+.cabinet_navigation_item._active{
   background: $pink;
+  color: #FFFFFF;
+  transition: all .4s;
 }
 
+/* Personal Data */
+.cabinet_personal_data_place{
+  width: 50%;
+  .default_input{
+    margin: 10px 0;
+  }
+  .default_btn{
+    margin-bottom: 20px;
+  }
+}
+/* Addresses */
+.addresses_place{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.address_item{
+  width: 32%;
+  margin-right: 10px;
+  border: 4px solid #d4d6da;
+  height: 310px;
+}
+.address_item:last-child{
+  margin-right: 0;
+}
 
 /* Empty component */
 .empty_place{
@@ -588,4 +664,20 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
   font-size: 14px;
   padding: 10px 20px;
+}
+
+/* Breadcrumbs */
+.breadcrumbs_place{
+  padding: 10px 0;
+}
+.breadcrumbs_link{
+  padding-left: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.breadcrumbs_link:first-child{
+  padding-left: 0;
+}
+.breadcrumbs_link:last-child{
+  color: $pink;
 }
