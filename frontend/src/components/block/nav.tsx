@@ -7,12 +7,15 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart, faShoppingBag, faUser, faSignOut} from '@fortawesome/free-solid-svg-icons'
 import {useAuth} from "../../hooks/auth_hook";
 import {AuthContext} from "../../context/AuthContext";
+
 export const Nav: FC = () => {
     const {token} = useAuth()
     const isAuthenticated = !!token
     const auth = useContext(AuthContext)
     const navigate = useNavigate()
     const {categories} = useTypedSelector(state => state.categories)
+    const {basket} = useTypedSelector(state => state.basket)
+    console.log('basket', basket)
     const [visibleBasket, setVisibleBasket] = useState(false)
     const [visibleAuth, setVisibleAuth] = useState(false)
     const openBasket = () => {
@@ -78,23 +81,31 @@ export const Nav: FC = () => {
                 </div>
             </div>
             <div className="right_nav">
+                <NavLink to="/favorites" className="right_nav__item">
+                    <div className="right_nav__item icon">
+                        <FontAwesomeIcon icon={faHeart}/>
+                    </div>
+                </NavLink>
+                <div className="right_nav__item" onClick={openBasket}>
+                    <div className="right_nav__item icon">
+                        <FontAwesomeIcon icon={faShoppingBag}/>
+                    </div>
+                    {
+                        basket.products && basket.products.length ?
+                            <span className="data_total">
+                                            {basket.products.length}
+                            </span>
+                            : <></>
+                    }
+                </div>
                 {
                     isAuthenticated ?
                         <>
-                            <NavLink to="/favorites" className="right_nav__item">
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faHeart}/>
-                                </div>
-                            </NavLink>
-                            <div className="right_nav__item" onClick={openBasket}>
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faShoppingBag}/>
-                                </div>
-                            </div>
                             <NavLink to="/cabinet" className="right_nav__item">
                                 <div className="right_nav__item icon">
                                     <FontAwesomeIcon icon={faUser}/>
                                 </div>
+
                             </NavLink>
                             <div className="right_nav__item" onClick={logoutUser}>
                                 <div className="right_nav__item icon">
@@ -103,23 +114,11 @@ export const Nav: FC = () => {
                             </div>
                         </>
                         :
-                        <>
-                            <div className="right_nav__item" onClick={openAuthModal}>
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faHeart}/>
-                                </div>
+                        <div className="right_nav__item" onClick={openAuthModal}>
+                            <div className="right_nav__item icon">
+                                <FontAwesomeIcon icon={faUser}/>
                             </div>
-                            <div className="right_nav__item" onClick={openBasket}>
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faShoppingBag}/>
-                                </div>
-                            </div>
-                            <div className="right_nav__item" onClick={openAuthModal}>
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faUser}/>
-                                </div>
-                            </div>
-                        </>
+                        </div>
                 }
             </div>
         </div>

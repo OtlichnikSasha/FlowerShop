@@ -6,4 +6,7 @@ router.post("/", productController.createProduct)
 
 router.get("/", productController.getProduct)
 
+router.post("/favorite", productController.addFavorite)
+router.delete("/favorite", productController.removeFavorite)
+
 module.exports = router

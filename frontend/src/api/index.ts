@@ -29,6 +29,11 @@ export const getProducts = async (args: object) => {
     return await api.get(url, args);
 };
 
+export const getFavoritesProducts = async (args: object) => {
+    const url = `products/favorite`;
+    return await api.get(url, args);
+};
+
 export const sortingProduct = async (args: object) => {
     const url = `products/sorting`;
     return await api.get(url, args);
@@ -48,6 +53,16 @@ export const getProduct = async (args: object) => {
 export const createProduct = async (data: object) => {
     const url = `product`;
     return await api.post(url, data);
+}
+
+export const addFavorite = async (data: object) => {
+    const url = `product/favorite`;
+    return await api.post(url, data);
+}
+
+export const removeFavorite = async (data: object) => {
+    const url = `product/favorite`;
+    return await api.delete(url, data);
 }
 
 // Flowers
@@ -91,5 +106,7 @@ export const addToBasket = async (data: AddBasketData) =>{
     const url = `basket`;
     return await api.post(url, data);
 }
+
+
 
 

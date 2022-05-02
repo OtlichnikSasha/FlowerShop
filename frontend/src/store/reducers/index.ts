@@ -7,6 +7,7 @@ import productReducer from "./productReducer";
 import flowerReducer from "./flowerReducer";
 import userReducer from "./userReducer";
 import userLoginReducer from "./userLoginReducer";
+import favoriteReducer from "./favoriteReducer";
 
 
 export const rootReducer = combineReducers({
@@ -17,7 +18,8 @@ export const rootReducer = combineReducers({
     product: productReducer,
     flowers: flowerReducer,
     user: userReducer,
-    userLogin: userLoginReducer
+    userLogin: userLoginReducer,
+    favorite: favoriteReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

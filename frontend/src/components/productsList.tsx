@@ -1,23 +1,22 @@
 import {FC} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {useActions} from "../hooks/useActions";
 import {Link} from "react-router-dom";
 import {Empty} from "./block/empty";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPercent, faHeart, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
-import {useAuth} from "../hooks/auth_hook";
-export const ProductsList: FC = (P) => {
-    const {id} = useAuth()
-    const {fetchAddBasket} = useActions()
+
+interface ProductsListProps{
+    addBasket: any,
+    changeFavorite: any,
+    firstLoading: boolean
+}
+export const ProductsList: FC<ProductsListProps> = ({addBasket, changeFavorite, firstLoading}) => {
     const {products, loading} = useTypedSelector(state => state.products)
 
-    const addBasket = (productId: number) => {
-        fetchAddBasket({userId: id, productId, count: 1})
-    }
     return (
         <div className="products_place">
             {
-                products.length && !loading ? products.map(product => {
+                products.length && !firstLoading ? products.map(product => {
                         return (
                             <div className="product_card" key={product.id}>
                                 <div className="product_card__photo_place">
@@ -40,8 +39,11 @@ export const ProductsList: FC = (P) => {
                                             </div>
                                         </div>
                                     }
-                                    <div className="product_card__favorites_place">
-                                        <FontAwesomeIcon icon={faHeart}/>
+                                    <div className="product_card__favorites_place" onClick={() => changeFavorite(product)}>
+                                        <FontAwesomeIcon
+                                            icon={faHeart}
+                                            className={product.favorite_products && product.favorite_products.length ? "favorite" : ""}
+                                        />
                                     </div>
                                 </div>
                                 <div className="product_card__data_place">
@@ -61,9 +63,23 @@ export const ProductsList: FC = (P) => {
                                                 </div>
                                             }
                                         </div>
-                                        <div className="product_data__basket_place" onClick={() => addBasket(product.id)}>
-                                            <FontAwesomeIcon icon={faShoppingBag}/>
-                                        </div>
+                                        {
+                                            product.basket_products && product.basket_products.length ?
+                                                <div className="product_data__flex">
+                                                    <div className="product_data__action">
+                                                        -
+                                                    </div>
+                                                    <input value={product.basket_products[0].count}/>
+                                                    <div className="product_data__action">
+                                                        -
+                                                    </div>
+                                                </div>
+                                        :
+                                                <div className="product_data__basket_place" onClick={() => addBasket(product.id)}>
+                                                    <FontAwesomeIcon icon={faShoppingBag}/>
+                                                </div>
+                                        }
+
                                     </div>
                                 </div>
                             </div>

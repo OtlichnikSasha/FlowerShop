@@ -8,6 +8,7 @@ import * as FlowerReducer from "../store/reducers/flowerReducer"
 import * as UserReducer from "../store/reducers/userReducer"
 import * as UserLoginReducer from "../store/reducers/userLoginReducer"
 import * as BasketReducer from "../store/reducers/basketReducer"
+import * as FavoriteReducer from "../store/reducers/favoriteReducer"
 
 export const useActions = () => {
     const dispatch = useDispatch()
@@ -19,6 +20,7 @@ export const useActions = () => {
         ...FlowerReducer,
         ...UserReducer,
         ...UserLoginReducer,
-        ...BasketReducer
+        ...BasketReducer,
+        ...FavoriteReducer
     },  dispatch)
 }

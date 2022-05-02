@@ -8,6 +8,8 @@ import {ProductsList} from "../components/productsList";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {PageNavigation} from "../components/pageNavigation";
 import {Breadcrumbs} from "../components/block/breadcrumbs";
+import {useAuth} from "../hooks/auth_hook";
+import {ProductState} from "../types/products";
 
 interface CatalogParams {
     categoryId: string | undefined
@@ -28,9 +30,11 @@ export const Catalog: React.FC = () => {
     if (page === undefined) page = "1"
     const limit = 12;
     let offset = 0;
+    const {id} = useAuth()
     const [category, setCategory] = useState<CategoryState | null>(null)
+    const [firstLoading, setFirstLoading] = useState(true)
     const [subCategory, setSubCategory] = useState("all")
-    const {fetchSubCategories, fetchProducts, fetchFlowers, fetchProductsData} = useActions()
+    const {fetchCreateProduct, fetchSubCategories, fetchProducts, fetchFlowers, fetchProductsData, fetchAddBasket, fetchAddFavorite, fetchRemoveFavorite, fetchBasket} = useActions()
     const {flowers} = useTypedSelector(state => state.flowers)
     const getSubCategories = useCallback(() => {
         // Создали категории
@@ -46,7 +50,7 @@ export const Catalog: React.FC = () => {
 
         // Создали товары
         // fetchCreateProduct({
-        //     name: "Букет подсолнухов",
+        //     name: "Букет лилей",
         //     categoryId: 1,
         //     subcategoryId: 1,
         //     price: 500,
@@ -71,6 +75,7 @@ export const Catalog: React.FC = () => {
         // fetchCreateFlowers({name: "Яблоки????", number: 10})
 
         // Получаем подкатегории по categoryId
+        setFirstLoading(true)
         fetchSubCategories({categoryId})
         fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
         fetchProductsData({categoryId, subcategoryId: subCategoryId, limit})
@@ -89,6 +94,7 @@ export const Catalog: React.FC = () => {
         getNameSubCategory()
         if (page !== "1") offset = (Number(page) - 1) * limit
         fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
+        setFirstLoading(false)
     }, [subCategoryId])
 
     useEffect(() => {
@@ -108,17 +114,43 @@ export const Catalog: React.FC = () => {
     }
     const getNameSubCategory = () => {
         if (subCategoryId !== "all") {
-            setSubCategory(subCategories.find(subCategory => subCategory.id === Number(subCategory))?.name)
+            return setSubCategory(subCategories.find(subCategory => subCategory.id === Number(subCategoryId))?.name)
         }
+        return setSubCategory("Все")
+    }
+
+    const addBasket = async (productId: number) => {
+        await fetchAddBasket({userId: id, productId, count: 1})
+        await fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
+        await fetchBasket({userId: id})
+    }
+
+    const changeFavorite = async (product: ProductState) => {
+        product.favorite_products && product.favorite_products.length ?
+            await fetchRemoveFavorite({productId: product.id, userId: id}) :
+            await fetchAddFavorite({productId: product.id, userId: id})
+        await fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
     }
 
     return (
         <section className="container">
             <Breadcrumbs>
                 <Link to="/catalog" className="breadcrumbs_link">Каталог</Link> /
-                <Link to={`/catalog/${categoryId}`} className="breadcrumbs_link">{category}</Link> /
-                <Link
-                    to={`/catalog/${categoryId}/${subCategory}`} className="breadcrumbs_link">{subCategoryId === "all" ? "Все" : subCategory}</Link>
+                <Link to={`/catalog/${categoryId}`} className="breadcrumbs_link">{category}</Link>
+                {
+                    subCategory ?
+                        <>
+                            /
+                            <Link
+                                to={`/catalog/${categoryId}/${subCategory}`}
+                                className="breadcrumbs_link">
+                                {subCategory}
+                            </Link>
+                        </>
+                        :
+                        <></>
+                }
+
             </Breadcrumbs>
             <div className="catalog_place">
                 <div className="sorting_place">
@@ -127,7 +159,7 @@ export const Catalog: React.FC = () => {
                 </div>
                 <div className="catalog_products_place">
                     <SubCategoriesList categoryId={categoryId} subCategoryId={subCategoryId}/>
-                    <ProductsList/>
+                    <ProductsList changeFavorite={changeFavorite} addBasket={addBasket} firstLoading={firstLoading}/>
                 </div>
                 <PageNavigation page={page}/>
             </div>

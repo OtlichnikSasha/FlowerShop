@@ -1,6 +1,6 @@
 import {ProductsState} from "../../types/products";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getProducts, sortingProduct, getProductsData} from "../../api/index";
+import {getProducts, sortingProduct, getProductsData, getFavoritesProducts} from "../../api/index";
 const initialState : ProductsState = {
     products: [],
     status: false,
@@ -16,6 +16,13 @@ export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async (args: object) => {
         return await getProducts(args);
+    }
+)
+
+export const fetchFavoritesProducts = createAsyncThunk(
+    'products/fetchFavoritesProducts',
+    async (args: object) => {
+        return await getFavoritesProducts(args);
     }
 )
 
@@ -56,6 +63,21 @@ const productsSlice = createSlice({
             .addCase(fetchProducts.rejected, state => {
                 state.loading = false
             })
+
+            // Избранные товары
+            .addCase(fetchFavoritesProducts.pending, state => {
+                state.loading = true
+            })
+            .addCase(fetchFavoritesProducts.fulfilled, (state: ProductsState, action) => {
+                console.log('products', action)
+                state.loading = false
+                state.products = action.payload.data
+                state.status = action.payload.status
+                state.error = ''
+            })
+            .addCase(fetchFavoritesProducts.rejected, state => {
+                state.loading = false
+            })
             // Сортировка
             .addCase(fetchSortingProducts.pending, state => {
                 state.loading = true
@@ -64,7 +86,7 @@ const productsSlice = createSlice({
                 console.log('sortingProducts', action)
                 state.loading = false
                 state.products = action.payload.data
-                state.status = true
+                state.status = action.payload.status
                 state.error = ''
             })
             .addCase(fetchSortingProducts.rejected, state => {
@@ -83,7 +105,7 @@ const productsSlice = createSlice({
                 state.min_price = action.payload?.data.min_price
                 //@ts-ignore
                 state.pages = action.payload?.data.pages
-                state.status = true
+                state.status = action.payload.status
                 state.error = ''
             })
             .addCase(fetchProductsData.rejected, state => {

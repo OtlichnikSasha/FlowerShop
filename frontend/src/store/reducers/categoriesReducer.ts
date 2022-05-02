@@ -41,7 +41,7 @@ const categoriesSlice = createSlice({
                 state.loading = false
                 // @ts-ignore
                 state.categories = action.payload.data
-                state.status = true
+                state.status = action.payload.status
             })
             .addCase(fetchCategories.rejected, state => {
                 state.loading = false

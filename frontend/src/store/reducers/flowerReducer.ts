@@ -42,7 +42,7 @@ const flowersSlice = createSlice({
                 state.loading = false
                 // @ts-ignore
                 state.flowers = action.payload.data
-                state.status = true
+                state.status = action.payload.status
             })
             .addCase(fetchFlowers.rejected, state => {
                 state.loading = false

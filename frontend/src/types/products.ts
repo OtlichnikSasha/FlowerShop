@@ -10,7 +10,7 @@ export interface ProductsState {
     pages? : number | null
 }
 
-interface ProductState{
+export interface ProductState{
     id: number,
     name: string,
     categoryId: number,
@@ -20,7 +20,11 @@ interface ProductState{
     description: string,
     views: number,
     cellPercent: number,
-    photos: ProductPhotos[]
+    photos: ProductPhotos[],
+    favorite_products: [],
+    basket_products: [{
+        count: number
+    }]
 }
 
 interface ProductPhotos {

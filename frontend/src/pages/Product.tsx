@@ -79,20 +79,24 @@ export const Product: React.FC = () => {
                         </Breadcrumbs>
                         <div className="product_place">
                             <div className="product_photos_place">
-                                {product.hasOwnProperty("photos") && product.photos.length && product.photos.map(photo => {
-                                    return (
-                                        <div className="product_small_photo_place" key={photo.src}>
-                                            <div className="product_small_photo">
-                                                <img
-                                                    src={photo.src}
-                                                    alt={product.name}
-                                                    className="product_card__photo"
-                                                    onClick={changeMainPhoto}
-                                                />
+                                {
+                                    product.photos && product.photos.length ? product.photos.map(photo => {
+                                        return (
+                                            <div className="product_small_photo_place" key={photo.src}>
+                                                <div className="product_small_photo">
+                                                    <img
+                                                        src={photo.src}
+                                                        alt={product.name}
+                                                        className="product_card__photo"
+                                                        onClick={changeMainPhoto}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })}
+                                        )
+                                })
+                                        :
+                                        <></>
+                                }
                             </div>
                             <div className="product_data_center">
                                 <img
@@ -127,7 +131,7 @@ export const Product: React.FC = () => {
                                 <div className="product_data__heading">
                                     Детали
                                 </div>
-                                {product.details.length ? product.details.map(detail => {
+                                {product.details && product.details.length ? product.details.map(detail => {
                                     return (
                                         <div className="product_data__details" key={detail.id}>
                                             <div>{detail.key}</div>

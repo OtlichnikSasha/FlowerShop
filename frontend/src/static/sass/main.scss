@@ -384,7 +384,7 @@ input[type=range]:focus::-ms-fill-upper {
     color: #FFFFFF;
     font-size: 16px;
   }
-  .fa-heart._active{
+  .fa-heart.favorite{
     color: $pink;
   }
 }
@@ -487,6 +487,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .pagination_place__item._active{
   background: $pink;
+  color: #FFFFFF;
 }
 
 /*=== Product Page ===*/

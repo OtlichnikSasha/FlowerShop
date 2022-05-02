@@ -26,6 +26,7 @@ export const fetchCreateProduct = createAsyncThunk(
     }
 )
 
+
 const productSlice = createSlice({
     name: 'product',
     initialState,
@@ -42,7 +43,7 @@ const productSlice = createSlice({
                 state.loading = false
                 // @ts-ignore
                 state.product = action.payload.data
-                state.status = true
+                state.status = action.payload.status
             })
             .addCase(fetchProduct.rejected, state => {
                 state.loading = false

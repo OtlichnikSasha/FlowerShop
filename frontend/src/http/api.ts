@@ -60,4 +60,24 @@ export class api {
         return result;
     }
 
+
+    static async delete (url: string, args: object) {
+        let result = {
+            status: false,
+            data: [],
+            error: ''
+        };
+        try {
+            const res = await http.delete(url, { params: { ...args } });
+            if (res.status === 200) {
+                result.status = true;
+                result.data = res.data;
+            }
+        } catch (e: any) {
+            console.log('e.response', e.response)
+            result.error = e.response.data.message
+        }
+        return result;
+    }
+
 }

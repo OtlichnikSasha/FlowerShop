@@ -22,6 +22,10 @@ const ProductDetails = sequelize.define('product_details', {
     name: {type: DataTypes.STRING},
 })
 
+const FavoriteProduct = sequelize.define('favorite_product', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+})
+
 const SubCategory = sequelize.define('subcategory', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true},
@@ -53,8 +57,12 @@ const Category = sequelize.define('category', {
 })
 
 const BasketProduct = sequelize.define('basket_product', {
-    count: {type: DataTypes.INTEGER}
-})
+    count: {type: DataTypes.INTEGER},
+},
+    {
+        freezeTableName: true,
+        tableName: 'basket_product'
+    })
 
 const Basket = sequelize.define('basket', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
@@ -65,19 +73,19 @@ const Basket = sequelize.define('basket', {
     }
 )
 
-// Basket содержит поле userID
+// Basket содержит поле userId
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
-// SubCategory содержит поле categoryID
+// SubCategory содержит поле categoryId
 Category.hasOne(SubCategory)
 SubCategory.belongsTo(Category)
 
-// Product содержит поле subCategoryID
+// Product содержит поле subCategoryId
 SubCategory.hasOne(Product)
 Product.belongsTo(SubCategory)
 
-// Product содержит поле categoryID
+// Product содержит поле categoryId
 Category.hasOne(Product)
 Product.belongsTo(Category)
 
@@ -86,17 +94,34 @@ Product.hasMany(ProductDetails, {as: 'details'})
 ProductDetails.belongsTo(Product)
 
 
-// Photo содержит productID
+// Photo содержит productId
 Product.hasMany(Photo, {as: 'photos'})
 Photo.belongsTo(Product)
 
-// FlowerProduct содержит productID и flowerID
+// FlowerProduct содержит productId и flowerId
 Product.belongsToMany(Flower, {through: FlowerProduct})
 Flower.belongsToMany(Product, {through: FlowerProduct})
 
-// BasketProduct содержит productID и basketID
-Basket.belongsToMany(Product, {through: BasketProduct})
-Product.belongsToMany(Basket, {through: BasketProduct})
+// // BasketProduct содержит productId и basketId
+// Basket.belongsToMany(Product, {through: BasketProduct})
+// Product.belongsToMany(Basket, {through: BasketProduct})
+
+// // FavoriteProduct содержит productId и userId
+User.hasMany(FavoriteProduct)
+FavoriteProduct.belongsTo(User)
+
+Product.hasMany(FavoriteProduct)
+FavoriteProduct.belongsTo(Product)
+
+
+// // BasketProduct содержит productId и basketId
+Basket.hasMany(BasketProduct)
+BasketProduct.belongsTo(Basket)
+
+Product.hasMany(BasketProduct)
+BasketProduct.belongsTo(Product)
+
+
 
 module.exports = {
     User,
@@ -105,5 +130,8 @@ module.exports = {
     SubCategory,
     Photo,
     Flower,
-    FlowerProduct
+    FlowerProduct,
+    FavoriteProduct,
+    Basket,
+    BasketProduct
 }

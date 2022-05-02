@@ -9,7 +9,6 @@ class CategoryController{
         catch(e){
             return res.status(500).json({message: e.message})
         }
-
     }
 
     async createCategory(req, res){

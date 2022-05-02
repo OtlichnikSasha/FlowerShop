@@ -43,7 +43,7 @@ const subCategoriesSlice = createSlice({
                 state.loading = false
                 // @ts-ignore
                 state.subCategories = action.payload.data
-                state.status = true
+                state.status = action.payload.status
             })
             .addCase(fetchSubCategories.rejected, state => {
                 state.loading = false

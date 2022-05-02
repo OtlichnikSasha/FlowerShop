@@ -3,6 +3,7 @@ const router = new Router()
 const productsController = require("../controllers/productsController")
 
 router.get("/", productsController.getProducts)
+router.get("/favorite", productsController.getFavoriteProducts)
 router.get("/sorting", productsController.getSortingProducts)
 router.get("/data", productsController.getProductsData)
 

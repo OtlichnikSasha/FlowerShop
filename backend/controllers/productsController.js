@@ -1,5 +1,5 @@
 const {Product} = require("../models/index")
-const {Photo} = require("../models");
+const {Photo, User, FavoriteProduct, BasketProduct} = require("../models");
 
 class ProductsController {
     async getProducts(req, res) {
@@ -11,7 +11,11 @@ class ProductsController {
                     {
                         where: {categoryId},
                         offset, limit,
-                        include: [{model: Photo, as: 'photos', attributes: ['src']}],
+                        include: [
+                            {model: Photo, as: 'photos', attributes: ['src']},
+                            {model: FavoriteProduct, attributes: ['productId']},
+                            {model: BasketProduct}
+                        ],
                         order: [
                             ['id', 'DESC']
                         ]
@@ -22,7 +26,10 @@ class ProductsController {
                 products = await Product.findAll({
                     where: {categoryId, subcategoryId},
                     offset, limit,
-                    include: [{model: Photo, as: 'photos', attributes: ['src']}],
+                    include: [
+                        {model: Photo, as: 'photos', attributes: ['src']},
+                        {model: FavoriteProduct, attributes: ['productId']}
+                    ],
                     order: [
                         ['id', 'DESC']
                     ]
@@ -46,7 +53,10 @@ class ProductsController {
                             {
                                 where: {categoryId},
                                 offset, limit,
-                                include: [{model: Photo, as: 'photos', attributes: ['src']}],
+                                include: [
+                                    {model: Photo, as: 'photos', attributes: ['src']},
+                                    {model: FavoriteProduct, attributes: ['productId']}
+                                ],
                                 order: [
                                     ['id', 'DESC']
                                 ]
@@ -58,7 +68,10 @@ class ProductsController {
                             {
                                 where: {categoryId},
                                 offset, limit,
-                                include: [{model: Photo, as: 'photos', attributes: ['src']}],
+                                include: [
+                                    {model: Photo, as: 'photos', attributes: ['src']},
+                                    {model: FavoriteProduct, attributes: ['productId']}
+                                ],
                                 order: [
                                     ['cellPrice', 'DESC']
                                 ]
@@ -70,7 +83,10 @@ class ProductsController {
                             {
                                 where: {categoryId},
                                 offset, limit,
-                                include: [{model: Photo, as: 'photos', attributes: ['src']}],
+                                include: [
+                                    {model: Photo, as: 'photos', attributes: ['src']},
+                                    {model: FavoriteProduct, attributes: ['productId']}
+                                ],
                                 order: [
                                     ['cellPrice']
                                 ]
@@ -82,7 +98,11 @@ class ProductsController {
                             {
                                 where: {categoryId},
                                 offset, limit,
-                                include: [{model: Photo, as: 'photos', attributes: ['src']}],
+                                include: [
+                                    {model: Photo, as: 'photos', attributes: ['src']},
+                                    {model: FavoriteProduct, attributes: ['productId']},
+                                    {model: BasketProduct}
+                                ],
                                 order: [
                                     ['views', 'DESC']
                                 ]
@@ -156,6 +176,41 @@ class ProductsController {
             return res.status(500).json({message: e.message})
         }
     }
+
+    async getFavoriteProducts (req, res) {
+        const {userId} = req.query
+        try{
+            console.log('userId', userId)
+            const user = await User.findOne({
+                where: {id: userId}
+            })
+            if (!user) {
+                return res.status(400).json({
+                    message: 'Нет такого пользователя',
+                })
+            }
+            const favoriteProducts = await FavoriteProduct.findAll({
+                where: {userId},
+                attributes: ['productId'],
+            })
+            console.log('favoriteProducts', favoriteProducts.toString())
+            let productIds = []
+            for(let i = 0; i < favoriteProducts.length; i++){
+                productIds.push(favoriteProducts[i].productId)
+            }
+            const products = await Product.findAll({
+                where: {id:  productIds},
+                include: [
+                    {model: Photo, as: 'photos', attributes: ['src']},
+                    {model: FavoriteProduct, attributes: ['productId']}
+                ],
+            })
+            return res.json(products)
+        }
+        catch(e){
+            return res.status(500).json({message: e.message})
+        }
+}
 
 }
 

@@ -3,6 +3,7 @@ import {BasketState} from "../../types/basket";
 import {addToBasket, getBasket} from "../../api/index";
 
 const initialState : BasketState = {
+    //@ts-ignore
     basket: {},
     status: false,
     error: '',
@@ -33,6 +34,7 @@ const basketSlice = createSlice({
     initialState,
     reducers: {
         clearBasket: state => {
+            //@ts-ignore
             state.basket = {}
         }
     },
@@ -44,8 +46,9 @@ const basketSlice = createSlice({
             .addCase(fetchBasket.fulfilled, (state: BasketState, action) => {
                 console.log('basket', action.payload)
                 state.loading = false
-                state.basket = action.payload.data
-                state.status = true
+                //@ts-ignore
+                state.basket = action.payload.data.basket
+                state.status = action.payload.status
             })
             .addCase(fetchBasket.rejected, state => {
                 state.loading = false
@@ -57,8 +60,9 @@ const basketSlice = createSlice({
             .addCase(fetchAddBasket.fulfilled, (state: BasketState, action) => {
                 console.log('basket', action.payload)
                 state.loading = false
+                //@ts-ignore
                 state.basket = action.payload.data
-                state.status = true
+                state.status = action.payload.status
             })
             .addCase(fetchAddBasket.rejected, state => {
                 state.loading = false
