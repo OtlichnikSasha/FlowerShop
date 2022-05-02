@@ -107,6 +107,11 @@ export const addToBasket = async (data: AddBasketData) =>{
     return await api.post(url, data);
 }
 
+export const removeFromBasket = async (args: object) =>{
+    const url = `basket`;
+    return await api.delete(url, args);
+}
+
 
 
 

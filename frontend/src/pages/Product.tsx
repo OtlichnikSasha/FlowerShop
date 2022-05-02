@@ -134,8 +134,7 @@ export const Product: React.FC = () => {
                                 {product.details && product.details.length ? product.details.map(detail => {
                                     return (
                                         <div className="product_data__details" key={detail.id}>
-                                            <div>{detail.key}</div>
-                                            <div>{detail.value}</div>
+                                            <div>{detail.key}: {detail.name}</div>
                                         </div>
                                     )
                                 })

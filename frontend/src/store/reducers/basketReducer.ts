@@ -1,10 +1,9 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import {BasketState} from "../../types/basket";
-import {addToBasket, getBasket} from "../../api/index";
+import {addToBasket, getBasket, removeFromBasket} from "../../api/index";
 
 const initialState : BasketState = {
-    //@ts-ignore
-    basket: {},
+    basket: [],
     status: false,
     error: '',
     loading: false
@@ -29,6 +28,13 @@ export const fetchAddBasket = createAsyncThunk(
     }
 )
 
+export const fetchRemoveBasket = createAsyncThunk(
+    'basket/fetchRemoveBasket',
+    async (args: object) => {
+        return removeFromBasket(args);
+    }
+)
+
 const basketSlice = createSlice({
     name: 'basket',
     initialState,
@@ -46,8 +52,7 @@ const basketSlice = createSlice({
             .addCase(fetchBasket.fulfilled, (state: BasketState, action) => {
                 console.log('basket', action.payload)
                 state.loading = false
-                //@ts-ignore
-                state.basket = action.payload.data.basket
+                state.basket = action.payload.data
                 state.status = action.payload.status
             })
             .addCase(fetchBasket.rejected, state => {
@@ -60,13 +65,26 @@ const basketSlice = createSlice({
             .addCase(fetchAddBasket.fulfilled, (state: BasketState, action) => {
                 console.log('basket', action.payload)
                 state.loading = false
-                //@ts-ignore
-                state.basket = action.payload.data
                 state.status = action.payload.status
             })
             .addCase(fetchAddBasket.rejected, state => {
                 state.loading = false
             })
+
+
+            .addCase(fetchRemoveBasket.pending, state => {
+                state.loading = true
+            })
+            .addCase(fetchRemoveBasket.fulfilled, (state: BasketState, action) => {
+                console.log('basket', action.payload)
+                state.loading = false
+                state.status = action.payload.status
+            })
+            .addCase(fetchRemoveBasket.rejected, state => {
+                state.loading = false
+            })
+
+
             .addDefaultCase(() => {
             })
     }

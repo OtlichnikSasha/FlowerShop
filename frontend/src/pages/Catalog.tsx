@@ -34,7 +34,8 @@ export const Catalog: React.FC = () => {
     const [category, setCategory] = useState<CategoryState | null>(null)
     const [firstLoading, setFirstLoading] = useState(true)
     const [subCategory, setSubCategory] = useState("all")
-    const {fetchCreateProduct, fetchSubCategories, fetchProducts, fetchFlowers, fetchProductsData, fetchAddBasket, fetchAddFavorite, fetchRemoveFavorite, fetchBasket} = useActions()
+    const {fetchCreateProduct, fetchSubCategories, fetchProducts, fetchFlowers, fetchProductsData,
+        fetchAddBasket, fetchRemoveBasket, fetchAddFavorite, fetchRemoveFavorite, fetchBasket} = useActions()
     const {flowers} = useTypedSelector(state => state.flowers)
     const getSubCategories = useCallback(() => {
         // Создали категории
@@ -119,8 +120,9 @@ export const Catalog: React.FC = () => {
         return setSubCategory("Все")
     }
 
-    const addBasket = async (productId: number) => {
-        await fetchAddBasket({userId: id, productId, count: 1})
+    const changeBasket = async (productId: number, count: number) => {
+        if(!count) await fetchRemoveBasket({userId: id, productId})
+        else await fetchAddBasket({userId: id, productId, count: count})
         await fetchProducts({categoryId, subcategoryId: subCategoryId, limit, offset})
         await fetchBasket({userId: id})
     }
@@ -159,7 +161,7 @@ export const Catalog: React.FC = () => {
                 </div>
                 <div className="catalog_products_place">
                     <SubCategoriesList categoryId={categoryId} subCategoryId={subCategoryId}/>
-                    <ProductsList changeFavorite={changeFavorite} addBasket={addBasket} firstLoading={firstLoading}/>
+                    <ProductsList changeFavorite={changeFavorite} changeBasket={changeBasket} firstLoading={firstLoading}/>
                 </div>
                 <PageNavigation page={page}/>
             </div>

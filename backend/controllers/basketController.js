@@ -25,22 +25,7 @@ class BasketController {
                         ]}
                 ],
             })
-            console.log('products', JSON.stringify(products))
-            // let productIds = []
-            // for(let i = 0; i < favoriteProducts.length; i++){
-            //     productIds.push(favoriteProducts[i].productId)
-            // }
-            // const products = await Product.findAll({
-            //     where: {id:  productIds},
-            //     include: [
-            //         {model: Photo, as: 'photos', attributes: ['src']},
-            //         {model: FavoriteProduct, attributes: ['productId']}
-            //     ],
-            // })
-            return res.json({basket: {
-                    products: products
-                }})
-
+            return res.json(products)
         }
         catch(e){
             return res.status(500).json({message: e.message})
@@ -82,14 +67,9 @@ class BasketController {
                         message: 'Не найдено такого товара',
                     })
                 }
-                console.log('product', product)
-                console.log('userId', userId)
-                console.log('Product', Product)
-                console.log('Basket', Basket)
                 const basket = await Basket.findOne({
                     where: {userId: userId}
                 })
-                console.log('basket', basket)
                 const basketProduct = await BasketProduct.findOne({
                     where: {basketId: basket.id, productId}
                 })
@@ -109,7 +89,42 @@ class BasketController {
             return res.status(500).json({message: e.message})
         }
     }
+
+
+    async removeBasket (req, res){
+        const {userId, productId} = req.query
+        try{
+            const user = await User.findOne({
+                where: {id: userId},
+                include: [{model: Basket}]
+            })
+            if(!user){
+                return res.status(400).json({
+                    message: 'Нет такого пользователя',
+                })
+            }
+            const product = productChecker(productId)
+            if(!product){
+                return res.status(400).json({
+                    message: 'Не найдено такого товара',
+                })
+            }
+            console.log('user.basket.id', user.basket.id, productId)
+            const basketProduct = await BasketProduct.findOne({
+                where: {basketId: user.basket.id, productId}
+            })
+            console.log('basketProduct', basketProduct)
+            await basketProduct.destroy()
+            return res.json({})
+        }
+        catch(e){
+            return res.status(500).json({message: e.message})
+        }
+    }
 }
+
+
+
 
 
 const productChecker = async (productId) => {

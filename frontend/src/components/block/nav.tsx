@@ -91,9 +91,9 @@ export const Nav: FC = () => {
                         <FontAwesomeIcon icon={faShoppingBag}/>
                     </div>
                     {
-                        basket.products && basket.products.length ?
+                        basket && basket.length ?
                             <span className="data_total">
-                                            {basket.products.length}
+                                            {basket.length}
                             </span>
                             : <></>
                     }

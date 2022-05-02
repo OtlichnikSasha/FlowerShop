@@ -16,8 +16,8 @@ export const Favorites: FC = () => {
         }
     }, [id])
     const {fetchAddBasket, fetchAddFavorite, fetchRemoveFavorite} = useActions()
-    const addBasket = (productId: number) => {
-        fetchAddBasket({userId: id, productId, count: 1})
+    const changeBasket = (productId: number, count: number) => {
+        fetchAddBasket({userId: id, productId, count: count})
         fetchFavoritesProducts({userId: id})
     }
 
@@ -28,8 +28,8 @@ export const Favorites: FC = () => {
         await fetchFavoritesProducts({userId: id})
     }
     return (
-        <div>
-            <ProductsList addBasket={addBasket} changeFavorite={changeFavorite} firstLoading={firstLoading}/>
+        <div className="container favorites">
+            <ProductsList changeBasket={changeBasket} changeFavorite={changeFavorite} firstLoading={firstLoading}/>
         </div>
     );
 };

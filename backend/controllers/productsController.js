@@ -28,7 +28,8 @@ class ProductsController {
                     offset, limit,
                     include: [
                         {model: Photo, as: 'photos', attributes: ['src']},
-                        {model: FavoriteProduct, attributes: ['productId']}
+                        {model: FavoriteProduct, attributes: ['productId']},
+                        {model: BasketProduct}
                     ],
                     order: [
                         ['id', 'DESC']
@@ -55,7 +56,8 @@ class ProductsController {
                                 offset, limit,
                                 include: [
                                     {model: Photo, as: 'photos', attributes: ['src']},
-                                    {model: FavoriteProduct, attributes: ['productId']}
+                                    {model: FavoriteProduct, attributes: ['productId']},
+                                    {model: BasketProduct}
                                 ],
                                 order: [
                                     ['id', 'DESC']
@@ -70,7 +72,8 @@ class ProductsController {
                                 offset, limit,
                                 include: [
                                     {model: Photo, as: 'photos', attributes: ['src']},
-                                    {model: FavoriteProduct, attributes: ['productId']}
+                                    {model: FavoriteProduct, attributes: ['productId']},
+                                    {model: BasketProduct}
                                 ],
                                 order: [
                                     ['cellPrice', 'DESC']
@@ -85,7 +88,8 @@ class ProductsController {
                                 offset, limit,
                                 include: [
                                     {model: Photo, as: 'photos', attributes: ['src']},
-                                    {model: FavoriteProduct, attributes: ['productId']}
+                                    {model: FavoriteProduct, attributes: ['productId']},
+                                    {model: BasketProduct}
                                 ],
                                 order: [
                                     ['cellPrice']
