@@ -214,7 +214,70 @@ class ProductsController {
         catch(e){
             return res.status(500).json({message: e.message})
         }
-}
+    }
+
+    async getPopularProducts(req,res){
+        try{
+            const products = await Product.findAll({
+                limit: 12,
+                order: [
+                    ['views', 'DESC']
+                ],
+                include: [
+                    {model: Photo, as: 'photos', attributes: ['src']},
+                    {model: FavoriteProduct, attributes: ['productId']},
+                    {model: BasketProduct}
+                ]
+            })
+            return res.json(products)
+        }
+        catch (e){
+            return res.status(500).json({message: e.message})
+        }
+    }
+
+
+    async getSimilarProducts(req,res){
+        const {categoryId} = req.query
+        try{
+            const products = await Product.findAll({
+                where: {categoryId},
+                limit: 12,
+                order: [
+                    ['id', 'DESC']
+                ],
+                include: [
+                    {model: Photo, as: 'photos', attributes: ['src']},
+                    {model: FavoriteProduct, attributes: ['productId']},
+                    {model: BasketProduct}
+                ]
+            })
+            return res.json(products)
+        }
+        catch (e){
+            return res.status(500).json({message: e.message})
+        }
+    }
+
+    async getCellProducts(req,res){
+        try{
+            const products = await Product.findAll({
+                limit: 12,
+                order: [
+                    ['cellPrice', 'DESC']
+                ],
+                include: [
+                    {model: Photo, as: 'photos', attributes: ['src']},
+                    {model: FavoriteProduct, attributes: ['productId']},
+                    {model: BasketProduct}
+                ]
+            })
+            return res.json(products)
+        }
+        catch (e){
+            return res.status(500).json({message: e.message})
+        }
+    }
 
 }
 

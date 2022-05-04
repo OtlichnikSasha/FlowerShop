@@ -6,6 +6,9 @@ import {Breadcrumbs} from "../components/block/breadcrumbs";
 import {SliderProducts} from "../components/sliderProducts";
 import {ProductState} from "../types/products";
 import {useAuth} from "../hooks/auth_hook";
+import {IndividualOrder} from "../components/individualOrder";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 interface ProductParams {
     id: string
@@ -24,7 +27,9 @@ export const Product: React.FC = () => {
         fetchRemoveBasket,
         fetchAddFavorite,
         fetchRemoveFavorite,
-        fetchBasket
+        fetchBasket,
+        fetchSimilarProducts,
+        fetchSubCategories
     } = useActions();
     const getProduct = useCallback(() => {
         fetchProduct({id})
@@ -35,13 +40,17 @@ export const Product: React.FC = () => {
     }, [getProduct])
 
     const {product, loading} = useTypedSelector(state => state.product)
-
+    const {products} = useTypedSelector(state => state.similarProducts)
+    const {categories} = useTypedSelector(state => state.categories)
+    const {subCategories} = useTypedSelector(state => state.subCategories)
     const getDataProduct = useCallback(() => {
         if (product && !loading) {
+            if(!subCategories.length) fetchSubCategories({categoryId: product.categoryId})
             getNameCategory(product.categoryId)
             getNameSubCategory(product.subcategoryId)
             document.title = product.name
             if (product.photos && product.photos.length) setMainPhoto(product.photos[0].src)
+            fetchSimilarProducts({categoryId: product.categoryId})
         }
     }, [product])
 
@@ -51,8 +60,7 @@ export const Product: React.FC = () => {
 
     console.log('productProductPage', product)
 
-    const {categories} = useTypedSelector(state => state.categories)
-    const {subCategories} = useTypedSelector(state => state.subCategories)
+
     const getNameSubCategory = (subCategoryId: number) => {
         setSubCategory(subCategories.find(subCategory => subCategory.id === Number(subCategoryId))?.name)
     }
@@ -65,9 +73,10 @@ export const Product: React.FC = () => {
         setMainPhoto(event.target.src)
     }
     const changeBasket = async (productId: number, count: number) => {
-        if (!count) await fetchRemoveBasket({userId: id, productId})
-        else await fetchAddBasket({userId, productId, count: count})
-        await fetchBasket({userId: id})
+        if (!count) await fetchRemoveBasket({userId, productId})
+        else await fetchAddBasket({userId, productId, count})
+        await fetchBasket({userId})
+        await fetchProduct({id})
     }
 
     const changeFavorite = async (product: ProductState) => {
@@ -127,6 +136,9 @@ export const Product: React.FC = () => {
                                 />
                             </div>
                             <div className="product_data_right">
+                                <div className="product_data__subcategory_name">
+                                    {subCategory}
+                                </div>
                                 <div className="product_data__name">
                                     {product.name}
                                 </div>
@@ -140,9 +152,32 @@ export const Product: React.FC = () => {
                                         {product.cellPrice} ₽
                                     </div>
                                 }
-                                <div className="product_add_to_basket">
 
-                                </div>
+                                {
+                                    product.basket_products && product.basket_products.length ?
+                                            <div className="product_data__flex">
+                                                <div className="product_data__action"
+                                                     onClick={() => changeBasket(product.id, product.basket_products[0].count - 1)}>
+                                                    <FontAwesomeIcon icon={faMinus}/>
+                                                </div>
+                                                <div className="product_data_in_basket">
+                                                    <span>В корзине: </span>
+                                                    <input className="product_data_basket_input"
+                                                           value={product.basket_products[0].count}/>
+                                                </div>
+                                                <div className="product_data__action"
+                                                     onClick={() => changeBasket(product.id, product.basket_products[0].count + 1)}>
+                                                    <FontAwesomeIcon icon={faPlus}/>
+                                                </div>
+                                            </div>
+                                        :
+                                        <div className="default_btn" onClick={() => changeBasket(product.id, 1)}>
+                                            Добавить в корзину
+                                        </div>
+                                }
+
+
+
                                 <div className="product_data__heading">
                                     Описание
                                 </div>
@@ -171,11 +206,18 @@ export const Product: React.FC = () => {
                     </>
                 }
             </section>
-            <section className="similar_products">
+            <section className="slider_products_place">
                 <div className="container">
-                    <SliderProducts/>
+                    <div className="slider_products_flex">
+                        <div className="heading">Похожее</div>
+                        <Link to="/catalog" className="default_btn">
+                            Весь каталог
+                        </Link>
+                    </div>
+                    <SliderProducts products={products}/>
                 </div>
             </section>
+            <IndividualOrder/>
         </div>
     );
 };

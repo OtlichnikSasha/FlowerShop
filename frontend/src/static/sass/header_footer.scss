@@ -221,7 +221,7 @@
 
 /*=== Modal Windows ===*/
 .modal_window_place{
-  position: absolute;
+  position: fixed;
   z-index: 900;
   top: 0;
   left: 0;

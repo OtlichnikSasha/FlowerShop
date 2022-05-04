@@ -44,6 +44,22 @@ export const getProductsData = async (args: object) => {
     return await api.get(url, args);
 };
 
+export const getCellProducts = async () => {
+    const url = `products/cell`;
+    return await api.get(url, {});
+};
+
+export const getSimilarProducts = async (args: object) => {
+    const url = `products/similar`;
+    return await api.get(url, args);
+};
+
+export const getPopularProducts = async () => {
+    const url = `products/popular`;
+    return await api.get(url, {});
+};
+
+
 // Product
 export const getProduct = async (args: object) => {
     const url = `product`;

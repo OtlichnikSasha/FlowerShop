@@ -10,6 +10,10 @@ export interface ProductState{
         views: number,
         cellPercent: number,
         photos: PhotoState[],
+        favorite_products: [],
+        basket_products: [{
+            count: number
+        }],
         details: any[]
     },
     status: boolean | null,
@@ -19,5 +23,4 @@ export interface ProductState{
 
 interface PhotoState {
     src: string,
-    productId: number
 }

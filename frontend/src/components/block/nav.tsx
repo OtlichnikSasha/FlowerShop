@@ -16,7 +16,6 @@ export const Nav: FC = () => {
     const {categories} = useTypedSelector(state => state.categories)
     const {basket} = useTypedSelector(state => state.basket)
     const {products} = useTypedSelector(state => state.favorite)
-    console.log('basket', basket)
     const [visibleBasket, setVisibleBasket] = useState(false)
     const [visibleAuth, setVisibleAuth] = useState(false)
     const openBasket = () => {

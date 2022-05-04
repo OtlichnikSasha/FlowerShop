@@ -9,6 +9,9 @@ import * as UserReducer from "../store/reducers/userReducer"
 import * as UserLoginReducer from "../store/reducers/userLoginReducer"
 import * as BasketReducer from "../store/reducers/basketReducer"
 import * as FavoriteReducer from "../store/reducers/favoriteReducer"
+import * as CellProductsReducer from "../store/reducers/cellProductsReducer"
+import * as PopularProductsReducer from "../store/reducers/popularProductsReducer"
+import * as SimilarProductsReducer from "../store/reducers/similarProductsReducer"
 
 export const useActions = () => {
     const dispatch = useDispatch()
@@ -21,6 +24,9 @@ export const useActions = () => {
         ...UserReducer,
         ...UserLoginReducer,
         ...BasketReducer,
-        ...FavoriteReducer
+        ...FavoriteReducer,
+        ...CellProductsReducer,
+        ...PopularProductsReducer,
+        ...SimilarProductsReducer
     },  dispatch)
 }

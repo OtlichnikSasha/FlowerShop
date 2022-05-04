@@ -8,6 +8,9 @@ import flowerReducer from "./flowerReducer";
 import userReducer from "./userReducer";
 import userLoginReducer from "./userLoginReducer";
 import favoriteReducer from "./favoriteReducer";
+import popularProductsReducer from "./popularProductsReducer";
+import cellProductsReducer from "./cellProductsReducer";
+import similarProductsReducer from "./similarProductsReducer";
 
 
 export const rootReducer = combineReducers({
@@ -19,7 +22,10 @@ export const rootReducer = combineReducers({
     flowers: flowerReducer,
     user: userReducer,
     userLogin: userLoginReducer,
-    favorite: favoriteReducer
+    favorite: favoriteReducer,
+    similarProducts: similarProductsReducer,
+    popularProducts: popularProductsReducer,
+    cellProducts: cellProductsReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

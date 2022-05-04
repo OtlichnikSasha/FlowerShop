@@ -36,5 +36,11 @@ export interface ProductState{
 
 interface ProductPhotos {
     src: string,
-    productId: number
+}
+
+export interface CellProductsState{
+    products: ProductState[],
+    status: boolean | null,
+    error: string | null,
+    loading: boolean,
 }
