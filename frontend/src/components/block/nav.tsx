@@ -15,6 +15,7 @@ export const Nav: FC = () => {
     const navigate = useNavigate()
     const {categories} = useTypedSelector(state => state.categories)
     const {basket} = useTypedSelector(state => state.basket)
+    const {products} = useTypedSelector(state => state.favorite)
     console.log('basket', basket)
     const [visibleBasket, setVisibleBasket] = useState(false)
     const [visibleAuth, setVisibleAuth] = useState(false)
@@ -81,42 +82,60 @@ export const Nav: FC = () => {
                 </div>
             </div>
             <div className="right_nav">
-                <NavLink to="/favorites" className="right_nav__item">
-                    <div className="right_nav__item icon">
-                        <FontAwesomeIcon icon={faHeart}/>
-                    </div>
-                </NavLink>
-                <div className="right_nav__item" onClick={openBasket}>
-                    <div className="right_nav__item icon">
-                        <FontAwesomeIcon icon={faShoppingBag}/>
-                    </div>
-                    {
-                        basket && basket.length ?
-                            <span className="data_total">
+                <div className="right_nav__item_place">
+                    <NavLink to="/favorites" className="right_nav__item">
+                        <div className="right_nav__item icon">
+                            <FontAwesomeIcon icon={faHeart}/>
+                        </div>
+                        {
+                            products && products.length ?
+                                <span className="data_total">
+                                            {products.length}
+                            </span>
+                                :
+                                <></>
+                        }
+                    </NavLink>
+                </div>
+                <div className="right_nav__item_place">
+                    <div className="right_nav__item" onClick={openBasket}>
+                        <div className="right_nav__item icon">
+                            <FontAwesomeIcon icon={faShoppingBag}/>
+                        </div>
+                        {
+                            basket && basket.length ?
+                                <span className="data_total">
                                             {basket.length}
                             </span>
-                            : <></>
-                    }
+                                : <></>
+                        }
+                    </div>
                 </div>
                 {
                     isAuthenticated ?
                         <>
-                            <NavLink to="/cabinet" className="right_nav__item">
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faUser}/>
-                                </div>
+                            <div className="right_nav__item_place">
+                                <NavLink to="/cabinet" className="right_nav__item">
+                                    <div className="right_nav__item icon">
+                                        <FontAwesomeIcon icon={faUser}/>
+                                    </div>
 
-                            </NavLink>
-                            <div className="right_nav__item" onClick={logoutUser}>
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faSignOut}/>
+                                </NavLink>
+                            </div>
+                            <div className="right_nav__item_place">
+                                <div className="right_nav__item" onClick={logoutUser}>
+                                    <div className="right_nav__item icon">
+                                        <FontAwesomeIcon icon={faSignOut}/>
+                                    </div>
                                 </div>
                             </div>
                         </>
                         :
-                        <div className="right_nav__item" onClick={openAuthModal}>
-                            <div className="right_nav__item icon">
-                                <FontAwesomeIcon icon={faUser}/>
+                        <div className="right_nav__item_place">
+                            <div className="right_nav__item" onClick={openAuthModal}>
+                                <div className="right_nav__item icon">
+                                    <FontAwesomeIcon icon={faUser}/>
+                                </div>
                             </div>
                         </div>
                 }

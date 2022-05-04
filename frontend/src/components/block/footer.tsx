@@ -1,8 +1,9 @@
 import React from 'react';
 import {Nav} from "./nav";
 import {Link} from "react-router-dom";
-import { faVk, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import {faVk, faInstagram, faFacebook} from '@fortawesome/free-brands-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 export const Footer = () => {
     return (
         <footer className="footer">
@@ -41,21 +42,27 @@ export const Footer = () => {
                             Социальные сети
                         </div>
                         <div className="social_network_place">
-                            <a className="right_nav__item" href="" target="_blank">
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faInstagram}/>
-                                </div>
-                            </a>
-                            <a className="right_nav__item" href="" target="_blank">
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faVk}/>
-                                </div>
-                            </a>
-                            <a className="right_nav__item" href="" target="_blank">
-                                <div className="right_nav__item icon">
-                                    <FontAwesomeIcon icon={faFacebook}/>
-                                </div>
-                            </a>
+                            <div className="right_nav__item_place">
+                                <a className="right_nav__item" href="" target="_blank">
+                                    <div className="right_nav__item icon">
+                                        <FontAwesomeIcon icon={faInstagram}/>
+                                    </div>
+                                </a>
+                            </div>
+                            <div className="right_nav__item_place">
+                                <a className="right_nav__item" href="" target="_blank">
+                                    <div className="right_nav__item icon">
+                                        <FontAwesomeIcon icon={faVk}/>
+                                    </div>
+                                </a>
+                            </div>
+                            <div className="right_nav__item_place">
+                                <a className="right_nav__item" href="" target="_blank">
+                                    <div className="right_nav__item icon">
+                                        <FontAwesomeIcon icon={faFacebook}/>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

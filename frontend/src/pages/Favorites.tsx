@@ -3,6 +3,9 @@ import {ProductsList} from "../components/productsList";
 import {useAuth} from "../hooks/auth_hook";
 import {useActions} from "../hooks/useActions";
 import {ProductState} from "../types/products";
+import {FavoritesProductsList} from "../components/favoritesProductsList";
+import {Breadcrumbs} from "../components/block/breadcrumbs";
+import {Link} from "react-router-dom";
 
 export const Favorites: FC = () => {
     const {id} = useAuth()
@@ -28,9 +31,19 @@ export const Favorites: FC = () => {
         await fetchFavoritesProducts({userId: id})
     }
     return (
-        <div className="container favorites">
-            <ProductsList changeBasket={changeBasket} changeFavorite={changeFavorite} firstLoading={firstLoading}/>
-        </div>
+        <>
+            <div className="heading_block">
+                <div className="container">
+                    <Breadcrumbs>
+                        <Link to="/favorites" className="breadcrumbs_link">Избранное</Link>
+                    </Breadcrumbs>
+                    <h1 className="heading">Избранное</h1>
+                </div>
+            </div>
+            <div className="container favorites">
+                <FavoritesProductsList changeBasket={changeBasket} changeFavorite={changeFavorite} firstLoading={firstLoading}/>
+            </div>
+        </>
     );
 };
 

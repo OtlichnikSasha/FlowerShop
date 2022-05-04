@@ -4,7 +4,8 @@ export interface BasketState {
     basket: BasketData[],
     status: boolean | null,
     error: string | null,
-    loading: boolean
+    loading: boolean,
+    orderPrice: number
 }
 
 export interface BasketData{

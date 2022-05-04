@@ -1,6 +1,7 @@
 import {Favorites} from "../pages/Favorites";
 import {Basket} from "../pages/Basket";
 import {Cabinet} from "../pages/Cabinet";
+import {Order} from "../pages/Order";
 
 export const authRoutes = [
     {
@@ -14,5 +15,9 @@ export const authRoutes = [
     {
         path: "/basket",
         element: <Basket/>
+    },
+    {
+        path: "/order",
+        element: <Order/>
     }
 ]

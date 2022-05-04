@@ -322,10 +322,18 @@ input[type=range]:focus::-ms-fill-upper {
   min-width: 95px;
   transition: all .4s;
 }
+.subcategories_item:hover{
+  box-shadow: 1px 2px 3px #acacad;
+  transition: all .4s;
+}
 .subcategories_item._active{
   background: $pink;
   transition: all .4s;
   color: #FFFFFF;
+}
+.subcategories_item._active:hover{
+  box-shadow: 1px 2px 3px #fa5757;
+  transition: all .4s;
 }
 .subcategories_item__link{
   font-size: 16px;
@@ -580,8 +588,8 @@ input[type=range]:focus::-ms-fill-upper {
 /*==== Cabinet =====*/
 .heading_block{
   background: #e9eaec;
-  padding: 40px 0;
-  margin-top: -30px;
+  padding: 20px 0;
+  margin: -30px 0 30px;
   .heading{
     text-align: center;
   }
@@ -707,6 +715,8 @@ input[type=range]:focus::-ms-fill-upper {
 /* Breadcrumbs */
 .breadcrumbs_place{
   padding: 10px 0;
+  display: flex;
+  align-items: center;
 }
 .breadcrumbs_link{
   padding-left: 5px;
@@ -718,6 +728,24 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .breadcrumbs_link:last-child{
   color: $pink;
+}
+.breadcrumbs_link:after{
+  display: block;
+  content: '';
+  margin-top: 2px;
+  height: 1px;
+  width: 100%;
+  background: $navy;
+  transform: scale(0);
+  transition: transform .4s;
+}
+
+.breadcrumbs_link:hover:after {
+  transform: scale(1);
+  transition: transform .4s
+}
+.breadcrumbs_link:last-child:after{
+  background: $pink;
 }
 
 /*=== Favorites page ===*/
@@ -731,4 +759,52 @@ input[type=range]:focus::-ms-fill-upper {
   .product_card:nth-child(4n){
     margin-right: 0;
   }
+}
+
+/* Slider */
+.swiper{
+  padding-bottom: 50px!important;
+}
+.swiper-slide{
+  height: 350px!important;
+}
+.swiper-button-next, .swiper-rtl .swiper-button-prev{
+  color: #293048!important;
+}
+.swiper-button-prev, .swiper-rtl .swiper-button-next{
+  color: #293048!important;
+}
+.swiper-pagination-clickable {
+  .swiper-pagination-bullet{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .swiper-pagination-bullet-active{
+    background: $pink;
+  }
+}
+.swiper-pagination{
+  display: flex;
+  justify-content: center;
+}
+
+
+/*== Order page ==*/
+.order_place{
+  width: 100%;
+  display: flex;
+}
+.order_data{
+  width: 48%;
+  margin-right: 2%;
+}
+.order_info{
+  width: 50%;
+  background: $grey;
 }

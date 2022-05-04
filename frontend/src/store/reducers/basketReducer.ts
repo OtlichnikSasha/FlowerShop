@@ -6,7 +6,8 @@ const initialState : BasketState = {
     basket: [],
     status: false,
     error: '',
-    loading: false
+    loading: false,
+    orderPrice: 0
 }
 
 export const fetchBasket = createAsyncThunk(
@@ -50,10 +51,13 @@ const basketSlice = createSlice({
                 state.loading = true
             })
             .addCase(fetchBasket.fulfilled, (state: BasketState, action) => {
-                console.log('basket', action.payload)
                 state.loading = false
                 state.basket = action.payload.data
                 state.status = action.payload.status
+                action.payload.data.map(product => {
+                    // @ts-ignore
+                    state.orderPrice += product.product.cellPrice * product.product.basket_products[0].count
+                })
             })
             .addCase(fetchBasket.rejected, state => {
                 state.loading = false

@@ -19,12 +19,7 @@ export const fetchProducts = createAsyncThunk(
     }
 )
 
-export const fetchFavoritesProducts = createAsyncThunk(
-    'products/fetchFavoritesProducts',
-    async (args: object) => {
-        return await getFavoritesProducts(args);
-    }
-)
+
 
 export const fetchProductsData = createAsyncThunk(
     'products/fetchProductsData',
@@ -64,20 +59,7 @@ const productsSlice = createSlice({
                 state.loading = false
             })
 
-            // Избранные товары
-            .addCase(fetchFavoritesProducts.pending, state => {
-                state.loading = true
-            })
-            .addCase(fetchFavoritesProducts.fulfilled, (state: ProductsState, action) => {
-                console.log('products', action)
-                state.loading = false
-                state.products = action.payload.data
-                state.status = action.payload.status
-                state.error = ''
-            })
-            .addCase(fetchFavoritesProducts.rejected, state => {
-                state.loading = false
-            })
+
             // Сортировка
             .addCase(fetchSortingProducts.pending, state => {
                 state.loading = true

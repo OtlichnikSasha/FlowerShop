@@ -1,3 +1,10 @@
+export interface FavoritesState {
+    products: ProductState[],
+    status: boolean | null,
+    error: string | null,
+    loading: boolean,
+}
+
 
 export interface ProductsState {
     products: ProductState[],
