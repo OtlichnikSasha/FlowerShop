@@ -12,14 +12,10 @@ export const SubCategoriesLoader: FC = () => {
                 </div>
             </Link>
             <div className="subcategories_item loading">
-                <div className="subcategories_item__link">
-
-                </div>
+                <div className="subcategories_item__link" />
             </div>
             <div className="subcategories_item loading">
-                <div className="subcategories_item__link">
-
-                </div>
+                <div className="subcategories_item__link" />
             </div>
         </>
     );

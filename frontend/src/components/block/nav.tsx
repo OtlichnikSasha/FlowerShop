@@ -1,4 +1,4 @@
-import React, {useState, FC, useContext} from 'react';
+import React, {useState, FC, useContext, useRef} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom'
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {BasketModalWindow} from "./basketModalWindow";
@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart, faShoppingBag, faUser, faSignOut} from '@fortawesome/free-solid-svg-icons'
 import {useAuth} from "../../hooks/auth_hook";
 import {AuthContext} from "../../context/AuthContext";
+import {MobileNav} from "../mobileNav";
 
 export const Nav: FC = () => {
     const {token} = useAuth()
@@ -18,33 +19,35 @@ export const Nav: FC = () => {
     const {products} = useTypedSelector(state => state.favorite)
     const [visibleBasket, setVisibleBasket] = useState(false)
     const [visibleAuth, setVisibleAuth] = useState(false)
+    const [visibleMobileMenu, setVisibleMobileMenu] = useState(false)
+
+    const mobileNav = useRef(null)
     const openBasket = () => {
         setVisibleBasket(true)
         document.body.style.overflow = "hidden";
-    }
-    const closeBasket = () => {
-        setVisibleBasket(false)
-        document.body.style.overflow = "auto";
     }
 
     const openAuthModal = () => {
         setVisibleAuth(true)
         document.body.style.overflow = "hidden";
     }
-    const closeAuthModal = () => {
-        setVisibleAuth(false)
-        document.body.style.overflow = "auto";
-    }
 
     const logoutUser = () => {
         auth.logout()
         navigate("/index")
     }
+
+    const openMobileNav = () => {
+        setVisibleMobileMenu(true)
+        document.body.style.overflow = 'hidden'
+    }
+
     return (
         <div className="block_container">
-            {visibleBasket && <BasketModalWindow onClick={closeBasket}/>}
-            {visibleAuth && <UserModalWindow onClick={closeAuthModal}/>}
-            <nav className="nav">
+            {visibleBasket && <BasketModalWindow setVisible={setVisibleBasket}/>}
+            {visibleAuth && <UserModalWindow setVisible={setVisibleAuth}/>}
+            {visibleMobileMenu && <MobileNav setVisible={setVisibleMobileMenu} />}
+            <nav className="nav" ref={mobileNav}>
                 <div className="nav_item">
                     <NavLink to="/catalog" className="nav_link">
                         Каталог
@@ -138,6 +141,11 @@ export const Nav: FC = () => {
                             </div>
                         </div>
                 }
+            </div>
+            <div className="mobile_menu_place" onClick={openMobileNav}>
+                <span/>
+                <span/>
+                <span/>
             </div>
         </div>
 

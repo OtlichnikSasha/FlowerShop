@@ -26,7 +26,23 @@ export const WeddingFlorist: FC = () => {
                     фотозоны, выездной регистрации и многое другое.
                 </div>
                 <div className="container_content__sub_data">
-                    ПРЕДЛАГАЕМ ВАМ ПОСМОТРЕТЬ НАШИ ПОДСКАЗКИ ДЛЯ ОФОРМЛЕНИЯ ЗАКАЗА:
+                    <div className="vacancy_list_heading">ПРЕДЛАГАЕМ ВАМ ПОСМОТРЕТЬ НАШИ ПОДСКАЗКИ ДЛЯ ОФОРМЛЕНИЯ ЗАКАЗА:</div>
+                    <div className="freshness_list_item">
+                        <span/>
+                        <div>Оформление заказа на свадьбу желательно минимум за месяц.</div>
+                    </div>
+                    <div className="freshness_list_item">
+                        <span/>
+                        <div>Обязательна личная встреча.</div>
+                    </div>
+                    <div className="freshness_list_item">
+                        <span/>
+                        <div>При первой встрече необходимо иметь при себе фотографии того, что хотелось бы увидеть на вашем торжестве, в каком цвете или стиле.</div>
+                    </div>
+                    <div className="freshness_list_item">
+                        <span/>
+                        <div>На второй встрече мы подготавливаем проект вашего цветочного оформления, обсуждаем его и согласовываем общий бюджет.</div>
+                    </div>
                 </div>
             </div>
         </section>

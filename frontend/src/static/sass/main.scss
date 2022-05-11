@@ -323,38 +323,9 @@ input[type=range]:focus::-ms-fill-upper {
   transition: all .4s;
 }
 .subcategories_item.loading{
-  animation: pulse 2s infinite;
   height: 41px;
 }
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-  }
-  70% {
-    -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-  }
-}
 
-@keyframes pulse {
-  0% {
-    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-    height: 100%;
-  }
-  70% {
-    -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-    box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-    height: 100%;
-  }
-  100% {
-    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-    box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-    height: 100%;
-  }
-}
 .subcategories_item:hover{
   box-shadow: 1px 2px 3px #acacad;
   transition: all .4s;
@@ -660,7 +631,7 @@ input[type=range]:focus::-ms-fill-upper {
   align-items: center;
   height: 40px;
   width: auto;
-  margin-right: 10px;
+  margin: 0 10px 10px 0;
   background: #d4d6da;
   text-transform: uppercase;
   padding: 0 20px;
@@ -814,6 +785,7 @@ input[type=range]:focus::-ms-fill-upper {
   background: $beige;
   width: 100%;
   padding: 25px 0;
+  position: relative;
 }
 .slider_products_flex{
   display: flex;
@@ -826,7 +798,7 @@ input[type=range]:focus::-ms-fill-upper {
   }
 }
 .swiper{
-  padding-bottom: 50px!important;
+  position: initial!important;
 }
 .swiper-slide{
   height: 350px!important;
@@ -886,16 +858,42 @@ input[type=range]:focus::-ms-fill-upper {
   display: flex;
   align-items: center;
 }
-.individual_order__data{
+.individual_order__data_place{
   background: #FFFFFF;
-  padding: 25px 0;
-  text-align: center;
+  padding: 5% 0;
   width: 65%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   border-right: 2px solid $navy;
   height: 400px;
+}
+.individual_order__data{
+  height: 100%;
+  padding: 0 10%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.individual_order__data_heading{
+  font-weight: bold;
+  font-size: 54px;
+  line-height: 120%;
+  margin: 15px 0 25px 0;
+  text-transform: uppercase;
+  color: #353925;
+}
+.individual_order__data_hint{
+  font-size: 18px;
+  padding: 0 10%;
+}
+.individual_order__btn{
+  background: $pink;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px 25px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #FFFFFF;
+  margin-top: 25px;
 }
 .individual_order__img_place{
   width: 35%;
@@ -951,5 +949,104 @@ input[type=range]:focus::-ms-fill-upper {
     font-size: 28px;
     margin-top: 35%;
     cursor: pointer;
+  }
+}
+
+/* Почему мы */
+.why_me_place{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.why_me__item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 215px;
+}
+.why_me__img_place{
+  width: 65px;
+  height: 65px;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+.why_me__heading{
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.why_me__subheading{
+  text-align: center;
+}
+.why_me__question{
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f75e5e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  .fa-question{
+    font-size: 10px;
+  }
+}
+
+
+/*=== Vacancies ===*/
+.vacancy_subheading{
+  font-size: 28px;
+  margin: 10px 0;
+}
+.vacancy_list_heading{
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.vacancy_list_item{
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/*=== Delivery and payment ====*/
+.payment_place{
+  margin: 35px 0;
+  .vacancy_list_heading{
+    font-weight: 600;
+  }
+  .container_content__top_data{
+    margin: 30px 0;
+  }
+}
+
+/*=== Freshness Instruction ===*/
+
+.freshness_section{
+  margin: 35px 0;
+}
+.freshness_list_item{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 20px;
+  span{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background: $pink;
   }
 }

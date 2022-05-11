@@ -19,6 +19,7 @@
   align-items: center;
   margin: 0 auto;
   max-width: 1400px;
+  position: relative;
 }
 .nav_item{
   display: inline-block;
@@ -151,7 +152,16 @@
 .right_nav__item:last-child {
   margin-right: 0;
 }
-
+.mobile_menu_place{
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 60px;
+  display: none;
+  background: $pink;
+  cursor: pointer;
+}
 /*=== Footer ===*/
 .footer {
   background: #353925;
@@ -269,6 +279,7 @@
 }
 .modal_window_data_place{
   padding: 20px;
+  height: 100%;
 }
 .modal_window{
   .default_input{
